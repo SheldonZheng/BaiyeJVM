@@ -23,6 +23,4 @@ func newEntry(path string) Entry {
 	}
 
 	return newDirEntry(path)
-
-
 }

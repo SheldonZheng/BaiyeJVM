@@ -1,4 +1,5 @@
 package classpath
+
 import "archive/zip"
 import "errors"
 import "io/ioutil"

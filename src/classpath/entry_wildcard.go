@@ -4,9 +4,9 @@ import "path/filepath"
 import "strings"
 
 func newWildcardEntry(path string) CompositeEntry  {
-	baseDir := path[len(path) - 1]
+	baseDir := path[:len(path) - 1]
 	compositeEntry := []Entry{}
-	walfFn := func(path string,info os.FileInfo,err error) {
+	walfFn := func(path string,info os.FileInfo,err error) error{
 		if err != nil{
 			return err
 		}

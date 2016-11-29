@@ -42,6 +42,47 @@ func (self *ClassFile) read(reader *ClassReader)  {
 	self.fields = readMembers(reader,self.constantPool)
 }
 
+func (self *ClassFile) readAndCheckMagic(reader *ClassReader)  {
+	magic := reader.readUint32()
+	if magic != 0xCAFEBABE{
+		panic("java.lang.ClassFormatError:magic!")
+	}
+}
+
+func (self *ClassFile) readAndCheckVersioni(reader *ClassReader)  {
+	self.minorVersion = reader.readUint16()
+	self.majorVersion = reader.readUint16()
+	switch self.majorVersion {
+	case 45:
+		return
+	case 46,47,48,49,50,51,52:
+		if self.minorVersion == 0{
+			return
+		}
+	}
+	panic("java.lang.UnsupportedClassVersionError!")
+}
+
+
+func (self *ClassFile) ClassName() string {
+	return self.constantPool.getClassName(self.thisClass)
+}
+
+func (self *ClassFile) SuperClassName() string {
+	if self.superClass > 0{
+		return self.constantPool.getClassName(self.superClass)
+	}
+	return "" //java.lang.Object???
+}
+
+func (self *ClassFile) InterfaceNames() []string {
+	interfaceNames := make([]string,len(self.interfaces))
+	for i, j := range self.interfaces{
+		interfaceNames[i] = self.constantPool.getClassName(j)
+	}
+	return interfaceNames
+}
+
 func (self *ClassFile) MajorVersion() uint16 {
 	return self.majorVersion	
 }
@@ -66,21 +107,3 @@ func (self *ClassFile) Methods() []*MemberInfo {
 	return self.methods
 }
 
-func (self *ClassFile) ClassName() string {
-	return self.constantPool.getClassName(self.thisClass)
-}
-
-func (self *ClassFile) SuperClassName() string {
-	if self.superClass > 0{
-		return self.constantPool.getClassName(self.superClass)
-	}
-	return "" //java.lang.Object???
-}
-
-func (self *ClassFile) InterfaceNames() []string {
-	interfaceNames := make([]string,len(self.interfaces))
-	for i, j := range self.interfaces{
-		interfaceNames[i] = self.constantPool.getClassName(j)
-	}
-	return interfaceNames
-}

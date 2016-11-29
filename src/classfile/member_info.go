@@ -34,3 +34,4 @@ func (self *MemberInfo) Descriptor() string {
 	return self.cp.getUtf8(self.descriptorIndex)
 }
 
+

@@ -1,5 +1,6 @@
 package classfile
 
+//异常表
 type ExceptionsAttribute struct {
 	exceptionIndexTable	[]uint16
 }

@@ -1,5 +1,5 @@
 package classfile
-type ConstantPool []ConstanInfo
+type ConstantPool []ConstantInfo
 
 type ConstantInfo interface {
 	readInfo(reader *ClassReader)
@@ -63,7 +63,7 @@ func (self ConstantPool) getNameAndType(index uint16) (string,string) {
 }
 
 func (self ConstantPool) getClassName(index uint16) string {
-	classInfo := self.getConstantInfo(index).(*ConstantUtf8Info)
+	classInfo := self.getConstantInfo(index).(*ConstantClassInfo)
 	return self.getUtf8(classInfo.nameIndex)
 }
 

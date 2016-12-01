@@ -20,6 +20,7 @@ func (self *ClassReader) readUint16() uint16 {
 func (self *ClassReader) readUint32() uint32 {
 	val := binary.BigEndian.Uint32(self.data)
 	self.data = self.data[4:]
+	return val
 }
 
 func (self *ClassReader) readUint64() uint64 {

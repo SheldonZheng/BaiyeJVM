@@ -22,10 +22,11 @@ func (self *ConstantInvokeDynamicInfo) NameAndType() (string, string) {
 }
 
 func (self *ConstantInvokeDynamicInfo) BootstrapMethodInfo() (uint16, []uint16) {
-	bmAttr := self.cp.cf.BootstrapMethodsAttribute()
+/*	bmAttr := self.cp.cf.BootstrapMethodsAttribute()
 	bm := bmAttr.bootstrapMethods[self.bootstrapMethodAttrIndex]
 
-	return bm.bootstrapMethodRef, bm.bootstrapArguments
+	return bm.bootstrapMethodRef, bm.bootstrapArguments*/
+	return 0,nil
 }
 
 /*

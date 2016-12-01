@@ -49,7 +49,7 @@ func (self *ClassFile) readAndCheckMagic(reader *ClassReader)  {
 	}
 }
 
-func (self *ClassFile) readAndCheckVersioni(reader *ClassReader)  {
+func (self *ClassFile) readAndCheckVersion(reader *ClassReader)  {
 	self.minorVersion = reader.readUint16()
 	self.majorVersion = reader.readUint16()
 	switch self.majorVersion {

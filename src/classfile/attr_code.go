@@ -26,7 +26,7 @@ func (self *CodeAttribute) readInfo(reader *ClassReader)  {
 	self.attributes = readAttributes(reader,self.cp)
 }
 
-func readExceptionTable(reader *ClassReader) *[]ExceptionTableEntry {
+func readExceptionTable(reader *ClassReader) []*ExceptionTableEntry {
 	exceptionTableLength := reader.readUint16()
 	exceptionTable := make([]*ExceptionTableEntry,exceptionTableLength)
 

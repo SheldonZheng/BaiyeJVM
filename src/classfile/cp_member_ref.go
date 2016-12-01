@@ -22,6 +22,7 @@ func (self *ConstantMemberrefInfo) ClassName() string {
 }
 
 func (self *ConstantMemberrefInfo) NameAndDescriptor() string {
-	return self.cp.getNameAndType(self.nameAndTypeIndex)
+	name,_ := self.cp.getNameAndType(self.nameAndTypeIndex)
+	return name
 }
 

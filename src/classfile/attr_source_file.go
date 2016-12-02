@@ -2,11 +2,11 @@ package classfile
 
 //指出源文件名
 type SourceFileAttribute struct {
-	cp	ConstantPool
-	sourceFileIndex	uint16
+	cp              ConstantPool
+	sourceFileIndex uint16
 }
 
-func (self *SourceFileAttribute) readInfo (reader *ClassReader)  {
+func (self *SourceFileAttribute) readInfo(reader *ClassReader) {
 	self.sourceFileIndex = reader.readUint16()
 }
 

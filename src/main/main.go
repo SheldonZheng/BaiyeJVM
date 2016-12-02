@@ -3,10 +3,9 @@ package main
 import "fmt"
 import "strings"
 import (
-	"classpath"
 	"classfile"
+	"classpath"
 )
-
 
 func main() {
 	cmd := parseCmd()
@@ -40,7 +39,6 @@ func startJVM(cmd *Cmd) {
 	}
 	fmt.Printf("class data:%v\n",classData)*/
 }
-
 
 func loadClass(className string, cp *classpath.Classpath) *classfile.ClassFile {
 	classData, _, err := cp.ReadClass(className)

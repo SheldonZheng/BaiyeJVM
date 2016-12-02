@@ -1,4 +1,5 @@
 package classfile
+
 import "fmt"
 
 type ClassFile struct {
@@ -10,18 +11,18 @@ type ClassFile struct {
 	thisClass    uint16
 	superClass   uint16
 	interfaces   []uint16
-	fields	     []*MemberInfo
+	fields       []*MemberInfo
 	methods      []*MemberInfo
 	attributes   []AttributeInfo
 }
 
-func Parse(classData []byte) (cf *ClassFile,err error) {
+func Parse(classData []byte) (cf *ClassFile, err error) {
 	defer func() {
-		if r := recover(); r != nil{
+		if r := recover(); r != nil {
 			var ok bool
 			err, ok = r.(error)
 			if !ok {
-				err = fmt.Errorf("%v",r)
+				err = fmt.Errorf("%v", r)
 			}
 		}
 	}()
@@ -31,7 +32,7 @@ func Parse(classData []byte) (cf *ClassFile,err error) {
 	return
 }
 
-func (self *ClassFile) read(reader *ClassReader)  {
+func (self *ClassFile) read(reader *ClassReader) {
 	self.readAndCheckMagic(reader)
 	self.readAndCheckVersion(reader)
 	self.constantPool = readConstantPool(reader)
@@ -39,52 +40,51 @@ func (self *ClassFile) read(reader *ClassReader)  {
 	self.thisClass = reader.readUint16()
 	self.superClass = reader.readUint16()
 	self.interfaces = reader.readUint16s()
-	self.fields = readMembers(reader,self.constantPool)
+	self.fields = readMembers(reader, self.constantPool)
 }
 
-func (self *ClassFile) readAndCheckMagic(reader *ClassReader)  {
+func (self *ClassFile) readAndCheckMagic(reader *ClassReader) {
 	magic := reader.readUint32()
-	if magic != 0xCAFEBABE{
+	if magic != 0xCAFEBABE {
 		panic("java.lang.ClassFormatError:magic!")
 	}
 }
 
-func (self *ClassFile) readAndCheckVersion(reader *ClassReader)  {
+func (self *ClassFile) readAndCheckVersion(reader *ClassReader) {
 	self.minorVersion = reader.readUint16()
 	self.majorVersion = reader.readUint16()
 	switch self.majorVersion {
 	case 45:
 		return
-	case 46,47,48,49,50,51,52:
-		if self.minorVersion == 0{
+	case 46, 47, 48, 49, 50, 51, 52:
+		if self.minorVersion == 0 {
 			return
 		}
 	}
 	panic("java.lang.UnsupportedClassVersionError!")
 }
 
-
 func (self *ClassFile) ClassName() string {
 	return self.constantPool.getClassName(self.thisClass)
 }
 
 func (self *ClassFile) SuperClassName() string {
-	if self.superClass > 0{
+	if self.superClass > 0 {
 		return self.constantPool.getClassName(self.superClass)
 	}
 	return "" //java.lang.Object???
 }
 
 func (self *ClassFile) InterfaceNames() []string {
-	interfaceNames := make([]string,len(self.interfaces))
-	for i, j := range self.interfaces{
+	interfaceNames := make([]string, len(self.interfaces))
+	for i, j := range self.interfaces {
 		interfaceNames[i] = self.constantPool.getClassName(j)
 	}
 	return interfaceNames
 }
 
 func (self *ClassFile) MajorVersion() uint16 {
-	return self.majorVersion	
+	return self.majorVersion
 }
 
 func (self *ClassFile) MinorVersion() uint16 {
@@ -106,4 +106,3 @@ func (self *ClassFile) Fields() []*MemberInfo {
 func (self *ClassFile) Methods() []*MemberInfo {
 	return self.methods
 }
-

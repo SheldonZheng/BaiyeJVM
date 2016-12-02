@@ -1,4 +1,5 @@
 package classfile
+
 import "encoding/binary"
 
 type ClassReader struct {
@@ -14,7 +15,7 @@ func (self *ClassReader) readUint8() uint8 {
 func (self *ClassReader) readUint16() uint16 {
 	val := binary.BigEndian.Uint16(self.data)
 	self.data = self.data[2:]
-	return val;
+	return val
 }
 
 func (self *ClassReader) readUint32() uint32 {
@@ -31,9 +32,9 @@ func (self *ClassReader) readUint64() uint64 {
 
 func (self *ClassReader) readUint16s() []uint16 {
 	n := self.readUint16()
-	s := make([]uint16,n)
-	for i := range s{
-		s[i] =self.readUint16()
+	s := make([]uint16, n)
+	for i := range s {
+		s[i] = self.readUint16()
 	}
 	return s
 }

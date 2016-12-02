@@ -1,4 +1,5 @@
 package classfile
+
 type LocalVariableTypeTableAttribute struct {
 	localVariableTypeTable []*LocalVariableTypeTableEntry
 }

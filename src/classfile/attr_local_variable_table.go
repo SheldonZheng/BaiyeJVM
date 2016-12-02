@@ -1,4 +1,5 @@
 package classfile
+
 type LocalVariableTableAttribute struct {
 	localVariableTable []*LocalVariableTableEntry
 }
@@ -24,4 +25,3 @@ func (self *LocalVariableTableAttribute) readInfo(reader *ClassReader) {
 		}
 	}
 }
-

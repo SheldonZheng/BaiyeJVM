@@ -1,18 +1,18 @@
 package classfile
 
 type ConstantMemberrefInfo struct {
-	cp			ConstantPool
-	classIndex		uint16
-	nameAndTypeIndex	uint16
+	cp               ConstantPool
+	classIndex       uint16
+	nameAndTypeIndex uint16
 }
 
-type ConstantFieldrefInfo struct { ConstantMemberrefInfo }
+type ConstantFieldrefInfo struct{ ConstantMemberrefInfo }
 
-type ConstantMethodrefInfo struct { ConstantMemberrefInfo }
+type ConstantMethodrefInfo struct{ ConstantMemberrefInfo }
 
-type ConstantInterfaceMethodrefInfo struct { ConstantMemberrefInfo }
+type ConstantInterfaceMethodrefInfo struct{ ConstantMemberrefInfo }
 
-func (self *ConstantMemberrefInfo) readInfo (reader *ClassReader)  {
+func (self *ConstantMemberrefInfo) readInfo(reader *ClassReader) {
 	self.classIndex = reader.readUint16()
 	self.nameAndTypeIndex = reader.readUint16()
 }
@@ -22,7 +22,6 @@ func (self *ConstantMemberrefInfo) ClassName() string {
 }
 
 func (self *ConstantMemberrefInfo) NameAndDescriptor() string {
-	name,_ := self.cp.getNameAndType(self.nameAndTypeIndex)
+	name, _ := self.cp.getNameAndType(self.nameAndTypeIndex)
 	return name
 }
-

@@ -4,14 +4,14 @@ import "math"
 
 type LocalVars []Slot
 
-func newLocalVars(maxLocals uint) LocalVars{
-	if maxLocals > 0{
-		return make([]Slot,maxLocals)
+func newLocalVars(maxLocals uint) LocalVars {
+	if maxLocals > 0 {
+		return make([]Slot, maxLocals)
 	}
 	return nil
 }
 
-func (self LocalVars) SetInt(index uint,val int32)  {
+func (self LocalVars) SetInt(index uint, val int32) {
 	self[index].num = val
 }
 
@@ -19,7 +19,7 @@ func (self LocalVars) GetInt(index uint) int32 {
 	return self[index].num
 }
 
-func (self LocalVars) SetFloat(index uint,val float32)  {
+func (self LocalVars) SetFloat(index uint, val float32) {
 	bits := math.Float32bits(val)
 	self[index].num = int32(bits)
 }
@@ -29,20 +29,20 @@ func (self LocalVars) GetFloat(index uint) float32 {
 	return math.Float32frombits(bits)
 }
 
-func (self LocalVars) SetLong(index uint,val int64)  {
+func (self LocalVars) SetLong(index uint, val int64) {
 	self[index].num = int32(val)
 	self[index].num = int32(val >> 32)
 }
 
 func (self LocalVars) GetLong(index uint) int64 {
 	l := uint32(self[index].num)
-	h := uint32(self[index + 1].num)
-	return int64(h) << 32 | int64(l)
+	h := uint32(self[index+1].num)
+	return int64(h)<<32 | int64(l)
 }
 
-func (self LocalVars) SetDouble(index uint,val float64)  {
+func (self LocalVars) SetDouble(index uint, val float64) {
 	bits := math.Float64bits(val)
-	self.SetLong(index,int64(bits))
+	self.SetLong(index, int64(bits))
 }
 
 func (self LocalVars) GetDouble(index uint) float64 {
@@ -50,7 +50,7 @@ func (self LocalVars) GetDouble(index uint) float64 {
 	return math.Float64frombits(bits)
 }
 
-func (self LocalVars) SetRef (index uint,ref *Object)  {
+func (self LocalVars) SetRef(index uint, ref *Object) {
 	self[index].ref = ref
 }
 

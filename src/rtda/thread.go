@@ -1,8 +1,8 @@
 package rtda
 
 type Thread struct {
-	pc	int
-	stack	*Stack
+	pc    int
+	stack *Stack
 }
 
 func NewThread() *Thread {
@@ -11,7 +11,7 @@ func NewThread() *Thread {
 	}
 }
 
-func (self *Thread) PushFrame(frame *Frame)  {
+func (self *Thread) PushFrame(frame *Frame) {
 	self.stack.push(frame)
 }
 

@@ -3,7 +3,7 @@ package loads
 import "instructions/base"
 import "rtda"
 
-//读取double 推入栈顶
+//读取double
 type DLOAD struct{ base.Index8Instruction }
 
 type DLOAD_0 struct{ base.NoOperandsInstruction }

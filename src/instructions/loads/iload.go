@@ -3,6 +3,7 @@ package loads
 import "instructions/base"
 import "rtda"
 
+//读取int 推入栈顶
 type ILOAD struct{ base.Index8Instruction }
 type ILOAD_0 struct{ base.NoOperandsInstruction }
 type ILOAD_1 struct{ base.NoOperandsInstruction }

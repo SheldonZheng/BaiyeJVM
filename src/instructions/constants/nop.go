@@ -4,7 +4,7 @@ import "instructions/base"
 import "rtda"
 
 type NOP struct {
-	base.NoOperandInstruction
+	base.NoOperandsInstruction
 }
 
 func (self *NOP) Execute(frame *rtda.Frame)  {

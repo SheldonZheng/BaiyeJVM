@@ -7,8 +7,7 @@ type Instrucion interface {
 	Execute(frame *rtda.Frame)
 }
 
-
-type NoOperandInstruction struct {}
+type NoOperandsInstruction struct {}
 
 type BranchInstruction struct {
 	Offset int
@@ -22,7 +21,7 @@ type Index16Instruction struct {
 	Index uint
 }
 
-func (self *NoOperandInstruction) FetchOperands(reader *BytecodeReader)  {
+func (self *NoOperandsInstruction) FetchOperands(reader *BytecodeReader)  {
 	//?
 }
 

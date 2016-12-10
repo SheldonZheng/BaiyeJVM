@@ -5,7 +5,7 @@ import (
 	"rtda"
 )
 
-//存储Long 放入变量
+//存储Long 放入局部变量表
 type LSTORE struct{ base.Index8Instruction }
 
 func (self *LSTORE) Execute(frame *rtda.Frame) {

@@ -2,7 +2,7 @@ package base
 
 import "rtda"
 
-type Instrucion interface {
+type Instruction interface {
 	FetchOperands(reader *BytecodeReader)
 	Execute(frame *rtda.Frame)
 }

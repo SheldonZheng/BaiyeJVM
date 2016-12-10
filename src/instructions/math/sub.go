@@ -45,4 +45,3 @@ func (self *LSUB) Execute(frame *rtda.Frame) {
 	result := v1 - v2
 	stack.PushLong(result)
 }
-

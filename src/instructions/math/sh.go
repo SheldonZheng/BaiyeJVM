@@ -70,4 +70,3 @@ func (self *LUSHR) Execute(frame *rtda.Frame) {
 	result := int64(uint64(v1) >> s)
 	stack.PushLong(result)
 }
-

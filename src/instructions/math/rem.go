@@ -2,8 +2,8 @@ package math
 
 import (
 	"instructions/base"
-	"rtda"
 	"math"
+	"rtda"
 )
 
 // Double 求余
@@ -61,4 +61,3 @@ func (self *LREM) Execute(frame *rtda.Frame) {
 		stack.PushLong(result)
 	}
 }
-

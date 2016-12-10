@@ -10,7 +10,7 @@ type POP struct{ base.NoOperandsInstruction }
 type POP2 struct{ base.NoOperandsInstruction }
 
 //弹出int、float等占用一个位置的变量
-func (self *POP) Execute(frame *rtda.Frame)  {
+func (self *POP) Execute(frame *rtda.Frame) {
 	stack := frame.OperandStack()
 	stack.PopSlot()
 }

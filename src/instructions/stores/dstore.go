@@ -40,4 +40,3 @@ func _dstore(frame *rtda.Frame, index uint) {
 	val := frame.OperandStack().PopDouble()
 	frame.LocalVars().SetDouble(index, val)
 }
-

@@ -15,7 +15,6 @@ func (self *I2B) Execute(frame *rtda.Frame) {
 	stack.PushInt(b)
 }
 
-
 //Int >> Char
 type I2C struct{ base.NoOperandsInstruction }
 

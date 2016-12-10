@@ -3,14 +3,15 @@ package extended
 import (
 	"instructions/base"
 	"instructions/loads"
-	"instructions/stores"
 	"instructions/math"
+	"instructions/stores"
 	"rtda"
 )
 
 type WIDE struct {
 	modifiedInstruction base.Instruction
 }
+
 func (self *WIDE) FetchOperands(reader *base.BytecodeReader) {
 	opcode := reader.ReadUint8()
 	switch opcode {

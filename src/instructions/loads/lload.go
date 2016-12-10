@@ -39,4 +39,3 @@ func _lload(frame *rtda.Frame, index uint) {
 	val := frame.LocalVars().GetLong(index)
 	frame.OperandStack().PushLong(val)
 }
-

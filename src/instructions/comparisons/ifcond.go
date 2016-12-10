@@ -59,4 +59,3 @@ func (self *IFGE) Execute(frame *rtda.Frame) {
 		base.Branch(frame, self.Offset)
 	}
 }
-

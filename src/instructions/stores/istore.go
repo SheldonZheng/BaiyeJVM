@@ -40,4 +40,3 @@ func _istore(frame *rtda.Frame, index uint) {
 	val := frame.OperandStack().PopInt()
 	frame.LocalVars().SetInt(index, val)
 }
-

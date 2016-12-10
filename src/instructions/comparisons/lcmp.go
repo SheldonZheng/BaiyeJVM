@@ -20,4 +20,3 @@ func (self *LCMP) Execute(frame *rtda.Frame) {
 		stack.PushInt(-1)
 	}
 }
-

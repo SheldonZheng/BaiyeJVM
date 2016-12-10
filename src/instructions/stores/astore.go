@@ -4,6 +4,7 @@ import (
 	"instructions/base"
 	"rtda"
 )
+
 //存储引用 放入局部变量表
 type ASTORE struct{ base.Index8Instruction }
 
@@ -39,4 +40,3 @@ func _astore(frame *rtda.Frame, index uint) {
 	ref := frame.OperandStack().PopRef()
 	frame.LocalVars().SetRef(index, ref)
 }
-

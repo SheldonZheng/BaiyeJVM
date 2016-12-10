@@ -15,4 +15,3 @@ func (self *SWAP) Execute(frame *rtda.Frame) {
 	stack.PushSlot(val1)
 	stack.PushSlot(val2)
 }
-

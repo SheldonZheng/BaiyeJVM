@@ -1,11 +1,11 @@
 package base
 
 type BytecodeReader struct {
-	code	[]byte
-	pc	int
+	code []byte
+	pc   int
 }
 
-func (self *BytecodeReader) Reset(code []byte,pc int)  {
+func (self *BytecodeReader) Reset(code []byte, pc int) {
 	self.code = code
 	self.pc = pc
 }
@@ -50,4 +50,8 @@ func (self *BytecodeReader) ReadInt32s(n int32) []int32 {
 		ints[i] = self.ReadInt32()
 	}
 	return ints
+}
+
+func (self *BytecodeReader) PC() int {
+	return self.pc
 }

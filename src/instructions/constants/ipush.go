@@ -5,12 +5,12 @@ import "rtda"
 
 //获取byte 扩展为int 推入栈顶
 type BIPUSH struct {
-	val	int8
+	val int8
 }
 
 //获取short 扩展为int 推入栈顶
 type SIPUSH struct {
-	val	int16
+	val int16
 }
 
 func (self *BIPUSH) FetchOperands(reader *base.BytecodeReader) {

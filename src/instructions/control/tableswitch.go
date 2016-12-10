@@ -33,4 +33,3 @@ func (self *TABLE_SWITCH) Execute(frame *rtda.Frame) {
 
 	base.Branch(frame, offset)
 }
-

@@ -38,4 +38,3 @@ func _fload(frame *rtda.Frame, index uint) {
 	val := frame.LocalVars().GetFloat(index)
 	frame.OperandStack().PushFloat(val)
 }
-

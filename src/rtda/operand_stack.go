@@ -73,7 +73,7 @@ func (self *OperandStack) PopRef() *Object {
 	return ref
 }
 
-func (self *OperandStack) PushSlot(slot Slot)  {
+func (self *OperandStack) PushSlot(slot Slot) {
 	self.slots[self.size] = slot
 	self.size++
 }

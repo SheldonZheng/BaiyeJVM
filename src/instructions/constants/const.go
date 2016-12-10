@@ -20,15 +20,15 @@ type ICONST_5 struct{ base.NoOperandsInstruction }
 type LCONST_0 struct{ base.NoOperandsInstruction }
 type LCONST_1 struct{ base.NoOperandsInstruction }
 
-func (self *ACONST_NULL) Execute(frame *rtda.Frame)  {
+func (self *ACONST_NULL) Execute(frame *rtda.Frame) {
 	frame.OperandStack().PushRef(nil)
 }
 
-func (self *DCONST_0) Execute(frame *rtda.Frame)  {
+func (self *DCONST_0) Execute(frame *rtda.Frame) {
 	frame.OperandStack().PushDouble(0.0)
 }
 
-func (self *ICONST_M1) Execute(frame *rtda.Frame)  {
+func (self *ICONST_M1) Execute(frame *rtda.Frame) {
 	frame.OperandStack().PushInt(-1)
 }
 
@@ -71,7 +71,6 @@ func (self *ICONST_4) Execute(frame *rtda.Frame) {
 func (self *ICONST_5) Execute(frame *rtda.Frame) {
 	frame.OperandStack().PushInt(5)
 }
-
 
 func (self *LCONST_0) Execute(frame *rtda.Frame) {
 	frame.OperandStack().PushLong(0)

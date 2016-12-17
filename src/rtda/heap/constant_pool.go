@@ -5,7 +5,7 @@ import "classfile"
 
 type Constant interface{}
 type ConstantPool struct {
-	class *Class
+	class  *Class
 	consts []Constant
 }
 
@@ -54,7 +54,7 @@ func newConstantPool(class *Class, cfCp classfile.ConstantPool) *ConstantPool {
 			methodrefInfo := cpInfo.(*classfile.ConstantInterfaceMethodrefInfo)
 			consts[i] = newInterfaceMethodRef(rtCp, methodrefInfo)
 		default:
-		// TODO
+			// TODO
 		}
 	}
 

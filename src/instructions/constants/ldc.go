@@ -21,9 +21,12 @@ func _ldc(frame *rtda.Frame, index uint) {
 	cp := frame.Method().Class().ConstantPool()
 	c := cp.GetConstant(index)
 	switch c.(type) {
-	case int32: stack.PushInt(c.(int32))
-	case float32: stack.PushFloat(c.(float32))
-	default: panic("todo: ldc!")
+	case int32:
+		stack.PushInt(c.(int32))
+	case float32:
+		stack.PushFloat(c.(float32))
+	default:
+		panic("todo: ldc!")
 	}
 }
 
@@ -32,8 +35,11 @@ func (self *LDC2_W) Execute(frame *rtda.Frame) {
 	cp := frame.Method().Class().ConstantPool()
 	c := cp.GetConstant(self.Index)
 	switch c.(type) {
-	case int64: stack.PushLong(c.(int64))
-	case float64: stack.PushDouble(c.(float64))
-	default: panic("java.lang.ClassFormatError")
+	case int64:
+		stack.PushLong(c.(int64))
+	case float64:
+		stack.PushDouble(c.(float64))
+	default:
+		panic("java.lang.ClassFormatError")
 	}
 }

@@ -58,4 +58,3 @@ func (self *MemberInfo) ConstantValueAttribute() *ConstantValueAttribute {
 	}
 	return nil
 }
-

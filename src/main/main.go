@@ -5,8 +5,8 @@ import (
 	"classfile"
 	"classpath"
 	"rtda"
-	"strings"
 	"rtda/heap"
+	"strings"
 )
 
 func main() {

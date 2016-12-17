@@ -15,6 +15,7 @@ import . "instructions/stores"
 import . "instructions/math"
 import . "instructions/stack"
 import . "instructions/references"
+
 var (
 	nop         = &NOP{}
 	aconst_null = &ACONST_NULL{}

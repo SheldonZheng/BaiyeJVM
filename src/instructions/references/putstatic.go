@@ -26,10 +26,15 @@ func (self *PUT_STATIC) Execute(frame *rtda.Frame) {
 	slots := class.StaticVars()
 	stack := frame.OperandStack()
 	switch descriptor[0] {
-	case 'Z', 'B', 'C', 'S', 'I': slots.SetInt(slotId, stack.PopInt())
-	case 'F': slots.SetFloat(slotId, stack.PopFloat())
-	case 'J': slots.SetLong(slotId, stack.PopLong())
-	case 'D': slots.SetDouble(slotId, stack.PopDouble())
-	case 'L', '[': slots.SetRef(slotId, stack.PopRef())
+	case 'Z', 'B', 'C', 'S', 'I':
+		slots.SetInt(slotId, stack.PopInt())
+	case 'F':
+		slots.SetFloat(slotId, stack.PopFloat())
+	case 'J':
+		slots.SetLong(slotId, stack.PopLong())
+	case 'D':
+		slots.SetDouble(slotId, stack.PopDouble())
+	case 'L', '[':
+		slots.SetRef(slotId, stack.PopRef())
 	}
 }

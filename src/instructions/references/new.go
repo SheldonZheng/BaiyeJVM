@@ -18,5 +18,3 @@ func (self *NEW) Execute(frame *rtda.Frame) {
 	ref := class.NewObject()
 	frame.OperandStack().PushRef(ref)
 }
-
-

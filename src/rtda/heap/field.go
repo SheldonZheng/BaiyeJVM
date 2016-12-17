@@ -4,7 +4,7 @@ import "classfile"
 
 type Field struct {
 	ClassMember
-	slotId uint
+	slotId          uint
 	constValueIndex uint
 }
 

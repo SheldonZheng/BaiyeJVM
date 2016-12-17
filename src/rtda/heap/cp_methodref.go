@@ -8,7 +8,7 @@ type MethodRef struct {
 }
 
 func newMethodRef(cp *ConstantPool,
-refInfo *classfile.ConstantMethodrefInfo) *MethodRef {
+	refInfo *classfile.ConstantMethodrefInfo) *MethodRef {
 	ref := &MethodRef{}
 	ref.cp = cp
 	ref.copyMemberRefInfo(&refInfo.ConstantMemberrefInfo)

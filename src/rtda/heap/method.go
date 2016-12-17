@@ -4,9 +4,9 @@ import "classfile"
 
 type Method struct {
 	ClassMember
-	maxStack uint
+	maxStack  uint
 	maxLocals uint
-	code []byte
+	code      []byte
 }
 
 func newMethods(class *Class, cfMethods []*classfile.MemberInfo) []*Method {

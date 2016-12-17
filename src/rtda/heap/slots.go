@@ -11,7 +11,6 @@ type Slot struct {
 
 type Slots []Slot
 
-
 func newSlots(maxLocals uint) Slots {
 	if maxLocals > 0 {
 		return make([]Slot, maxLocals)
@@ -65,4 +64,3 @@ func (self Slots) SetRef(index uint, ref *Object) {
 func (self Slots) GetRef(index uint) *Object {
 	return self[index].ref
 }
-

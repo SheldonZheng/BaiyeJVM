@@ -11,10 +11,10 @@ type Frame struct {
 	method       *heap.Method
 }
 
-func newFrame(thread *Thread,method *heap.Method) *Frame {
+func newFrame(thread *Thread, method *heap.Method) *Frame {
 	return &Frame{
 		thread:       thread,
-		method: method,
+		method:       method,
 		localVars:    newLocalVars(method.MaxLocals()),
 		operandStack: newOperandStack(method.MaxStack()),
 	}

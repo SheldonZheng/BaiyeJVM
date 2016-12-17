@@ -1,19 +1,19 @@
 package heap
 
 import (
+	"classfile"
 	"classpath"
 	"fmt"
-	"classfile"
 )
 
 type ClassLoader struct {
-	cp *classpath.Classpath
+	cp       *classpath.Classpath
 	classMap map[string]*Class // loaded classes
 }
 
 func NewClassLoader(cp *classpath.Classpath) *ClassLoader {
 	return &ClassLoader{
-		cp: cp,
+		cp:       cp,
 		classMap: make(map[string]*Class),
 	}
 }
@@ -32,7 +32,6 @@ func (self *ClassLoader) loadNonArrayClass(name string) *Class {
 	fmt.Printf("[Loaded %s from %s]\n", name, entry)
 	return class
 }
-
 
 func (self *ClassLoader) readClass(name string) ([]byte, classpath.Entry) {
 	data, entry, err := self.cp.ReadClass(name)

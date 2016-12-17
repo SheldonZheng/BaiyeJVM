@@ -1,5 +1,6 @@
 package rtda
 
+import "rtda/heap"
 
 type Frame struct {
 	lower        *Frame // stack is implemented as linked list
@@ -7,6 +8,7 @@ type Frame struct {
 	operandStack *OperandStack
 	thread       *Thread
 	nextPC       int
+	method       *heap.Method
 }
 
 func newFrame(thread *Thread, maxLocals, maxStack uint) *Frame {
@@ -33,4 +35,8 @@ func (self *Frame) NextPC() int {
 }
 func (self *Frame) SetNextPC(nextPC int) {
 	self.nextPC = nextPC
+}
+
+func (self *Frame) Method() *heap.Method {
+	return self.method
 }

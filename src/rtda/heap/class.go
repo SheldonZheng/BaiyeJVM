@@ -96,3 +96,7 @@ func (self *Class) isSubClassOf(c *Class) bool {
 	}
 	return false
 }
+
+func (self *Class) NewObject() *Object {
+	return newObject(self)
+}

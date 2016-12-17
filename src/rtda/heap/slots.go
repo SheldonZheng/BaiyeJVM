@@ -9,6 +9,8 @@ type Slot struct {
 	ref *Object
 }
 
+type Slots []Slot
+
 type LocalVars []Slot
 
 func newLocalVars(maxLocals uint) LocalVars {

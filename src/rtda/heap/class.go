@@ -2,6 +2,7 @@ package heap
 
 import (
 	"classfile"
+	"strings"
 )
 
 
@@ -75,4 +76,15 @@ func (self *Class) SuperClass() *Class {
 }
 func (self *Class) Interfaces() []*Class {
 	return self.interfaces
+}
+
+func (self *Class) isAccessibleTo(other *Class) bool {
+	return self.IsPublic() || self.getPackageName() == other.getPackageName()
+}
+
+func (self *Class) getPackageName() string {
+	if i := strings.LastIndex(self.name, "/"); i >= 0 {
+		return self.name[:i]
+	}
+	return ""
 }

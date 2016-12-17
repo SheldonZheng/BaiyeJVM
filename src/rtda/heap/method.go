@@ -46,3 +46,13 @@ func (self *Method) IsAbstract() bool {
 func (self *Method) IsStrict() bool {
 	return 0 != self.accessFlags&ACC_STRICT
 }
+
+func (self *Method) MaxStack() uint {
+	return self.maxStack
+}
+func (self *Method) MaxLocals() uint {
+	return self.maxLocals
+}
+func (self *Method) Code() []byte {
+	return self.code
+}

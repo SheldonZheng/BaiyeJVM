@@ -19,7 +19,7 @@ type Class struct {
 	interfaces []*Class
 	instanceSlotCount uint
 	staticSlotCount uint
-	staticVars *Slots
+	staticVars Slots
 }
 
 func newClass(cf *classfile.ClassFile) *Class {
@@ -105,5 +105,18 @@ func (self *Class) StaticVars() Slots {
 	return self.staticVars
 }
 
+func (self *Class) GetMainMethod() *Method {
+	return self.getStaticMethod("main", "([Ljava/lang/String;)V")
+}
 
+func (self *Class) getStaticMethod(name, descriptor string) *Method {
+	for _, method := range self.methods {
+		if method.IsStatic() &&
+			method.name == name &&
+			method.descriptor == descriptor {
 
+			return method
+		}
+	}
+	return nil
+}

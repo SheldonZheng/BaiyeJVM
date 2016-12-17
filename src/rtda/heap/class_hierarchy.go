@@ -1,5 +1,6 @@
 package heap
 
+
 func (self *Class) IsAssignableFrom(cls *Class) bool {
 	return self == cls ||
 		self.isSuperClassOf(cls) ||

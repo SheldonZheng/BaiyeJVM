@@ -54,7 +54,7 @@ func newConstantPool(class *Class, cfCp classfile.ConstantPool) *ConstantPool {
 			methodrefInfo := cpInfo.(*classfile.ConstantInterfaceMethodrefInfo)
 			consts[i] = newInterfaceMethodRef(rtCp, methodrefInfo)
 		default:
-		// todo
+		// TODO
 		}
 	}
 

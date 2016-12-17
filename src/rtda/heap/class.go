@@ -36,6 +36,27 @@ func newClass(cf *classfile.ClassFile) *Class {
 func (self *Class) IsPublic() bool {
 	return 0 != self.accessFlags&ACC_PUBLIC
 }
+func (self *Class) IsFinal() bool {
+	return 0 != self.accessFlags&ACC_FINAL
+}
+func (self *Class) IsSuper() bool {
+	return 0 != self.accessFlags&ACC_SUPER
+}
+func (self *Class) IsInterface() bool {
+	return 0 != self.accessFlags&ACC_INTERFACE
+}
+func (self *Class) IsAbstract() bool {
+	return 0 != self.accessFlags&ACC_ABSTRACT
+}
+func (self *Class) IsSynthetic() bool {
+	return 0 != self.accessFlags&ACC_SYNTHETIC
+}
+func (self *Class) IsAnnotation() bool {
+	return 0 != self.accessFlags&ACC_ANNOTATION
+}
+func (self *Class) IsEnum() bool {
+	return 0 != self.accessFlags&ACC_ENUM
+}
 
 func (self *Class) ConstantPool() *ConstantPool {
 	return self.constantPool

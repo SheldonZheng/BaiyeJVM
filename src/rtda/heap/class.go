@@ -1,8 +1,7 @@
 package heap
 
 import (
-	. "classfile"
-	"sync"
+	"classfile"
 )
 
 
@@ -11,7 +10,7 @@ type Class struct {
 	name string // thisClassName
 	superClassName string
 	interfaceNames []string
-	constantPool *ConstantPool
+	constantPool *classfile.ConstantPool
 	fields []*Field
 	methods []*Method
 	loader *ClassLoader
@@ -22,7 +21,7 @@ type Class struct {
 	staticVars *Slots
 }
 
-func newClass(cf *ClassFile) *Class {
+func newClass(cf *classfile.ClassFile) *Class {
 	class := &Class{}
 	class.accessFlags = cf.AccessFlags()
 	class.name = cf.ClassName()

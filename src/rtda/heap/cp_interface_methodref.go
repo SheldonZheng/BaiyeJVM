@@ -6,6 +6,7 @@ type InterfaceMethodRef struct {
 	MemberRef
 	method *Method
 }
+
 func newInterfaceMethodRef(cp *ConstantPool,
 refInfo *classfile.ConstantInterfaceMethodrefInfo) *InterfaceMethodRef {
 	ref := &InterfaceMethodRef{}

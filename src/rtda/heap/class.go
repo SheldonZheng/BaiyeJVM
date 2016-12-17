@@ -100,3 +100,7 @@ func (self *Class) isSubClassOf(c *Class) bool {
 func (self *Class) NewObject() *Object {
 	return newObject(self)
 }
+
+func (self *Class) StaticVars() Slots {
+	return self.staticVars
+}

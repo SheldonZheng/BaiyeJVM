@@ -18,7 +18,7 @@ func (self *Thread) PushFrame(frame *Frame) {
 }
 
 func (self *Thread) PopFrame() *Frame {
-	return self.stack.top()
+	return self.stack.pop()
 }
 
 func (self *Thread) NewFrame(method *heap.Method) *Frame {

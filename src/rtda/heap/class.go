@@ -19,6 +19,7 @@ type Class struct {
 	instanceSlotCount uint
 	staticSlotCount   uint
 	staticVars        Slots
+	initStarted       bool
 }
 
 func newClass(cf *classfile.ClassFile) *Class {
@@ -78,6 +79,9 @@ func (self *Class) StaticVars() Slots {
 	return self.staticVars
 }
 
+func (self *Class) InitStarted() bool {
+	return self.initStarted
+}
 
 // jvms 5.4.4
 func (self *Class) isAccessibleTo(other *Class) bool {
@@ -113,4 +117,8 @@ func (self *Class) getStaticMethod(name, descriptor string) *Method {
 
 func (self *Class) NewObject() *Object {
 	return newObject(self)
+}
+
+func (self *Class) StartInit() {
+	self.initStarted = true
 }

@@ -12,6 +12,7 @@ func interpret(method *heap.Method, logInst bool) {
 	thread := rtda.NewThread()
 	frame := thread.NewFrame(method)
 	thread.PushFrame(frame)
+
 	defer catchErr(thread)
 	loop(thread, logInst)
 }
@@ -29,15 +30,18 @@ func loop(thread *rtda.Thread, logInst bool) {
 		frame := thread.CurrentFrame()
 		pc := frame.NextPC()
 		thread.SetPC(pc)
+
 		// decode
 		reader.Reset(frame.Method().Code(), pc)
 		opcode := reader.ReadUint8()
 		inst := instructions.NewInstruction(opcode)
 		inst.FetchOperands(reader)
 		frame.SetNextPC(reader.PC())
-		if (logInst) {
+
+		if logInst {
 			logInstruction(frame, inst)
 		}
+
 		// execute
 		inst.Execute(frame)
 		if thread.IsStackEmpty() {

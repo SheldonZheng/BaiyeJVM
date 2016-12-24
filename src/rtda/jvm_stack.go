@@ -33,6 +33,7 @@ func (self *Stack) pop() *Frame {
 	self._top = top.lower
 	top.lower = nil
 	self.size--
+
 	return top
 }
 

@@ -25,13 +25,15 @@ func (self *INVOKE_INTERFACE) Execute(frame *rtda.Frame) {
 	if resolvedMethod.IsStatic() || resolvedMethod.IsPrivate() {
 		panic("java.lang.IncompatibleClassChangeError")
 	}
+
 	ref := frame.OperandStack().GetRefFromTop(resolvedMethod.ArgSlotCount() - 1)
 	if ref == nil {
-		panic("java.lang.NullPointerException")
+		panic("java.lang.NullPointerException") // todo
 	}
 	if !ref.Class().IsImplements(methodRef.ResolvedClass()) {
 		panic("java.lang.IncompatibleClassChangeError")
 	}
+
 	methodToBeInvoked := heap.LookupMethodInClass(ref.Class(),
 		methodRef.Name(), methodRef.Descriptor())
 	if methodToBeInvoked == nil || methodToBeInvoked.IsAbstract() {
@@ -40,5 +42,6 @@ func (self *INVOKE_INTERFACE) Execute(frame *rtda.Frame) {
 	if !methodToBeInvoked.IsPublic() {
 		panic("java.lang.IllegalAccessError")
 	}
+
 	base.InvokeMethod(frame, methodToBeInvoked)
 }

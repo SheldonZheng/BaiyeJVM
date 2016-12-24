@@ -7,13 +7,15 @@ import (
 )
 
 type ClassLoader struct {
-	cp       *classpath.Classpath
-	classMap map[string]*Class // loaded classes
+	cp *classpath.Classpath
+	verboseFlag bool
+	classMap map[string]*Class
 }
 
-func NewClassLoader(cp *classpath.Classpath) *ClassLoader {
+func NewClassLoader(cp *classpath.Classpath, verboseFlag bool) *ClassLoader {
 	return &ClassLoader{
-		cp:       cp,
+		cp: cp,
+		verboseFlag: verboseFlag,
 		classMap: make(map[string]*Class),
 	}
 }
@@ -29,10 +31,11 @@ func (self *ClassLoader) loadNonArrayClass(name string) *Class {
 	data, entry := self.readClass(name)
 	class := self.defineClass(data)
 	link(class)
-	fmt.Printf("[Loaded %s from %s]\n", name, entry)
+	if self.verboseFlag {
+		fmt.Printf("[Loaded %s from %s]\n", name, entry)
+	}
 	return class
 }
-
 func (self *ClassLoader) readClass(name string) ([]byte, classpath.Entry) {
 	data, entry, err := self.cp.ReadClass(name)
 	if err != nil {
@@ -53,7 +56,8 @@ func (self *ClassLoader) defineClass(data []byte) *Class {
 func parseClass(data []byte) *Class {
 	cf, err := classfile.Parse(data)
 	if err != nil {
-		panic("java.lang.ClassFormatError")
+		//panic("java.lang.ClassFormatError")
+		panic(err)
 	}
 	return newClass(cf)
 }

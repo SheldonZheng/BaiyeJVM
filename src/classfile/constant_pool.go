@@ -1,6 +1,5 @@
 package classfile
 
-import "fmt"
 
 type ConstantPool []ConstantInfo
 
@@ -52,7 +51,6 @@ func newConstantInfo(tag uint8, cp ConstantPool) ConstantInfo {
 
 func readConstantPool(reader *ClassReader) ConstantPool {
 	cpCount := int(reader.readUint16())
-	fmt.Println(cpCount)
 	cp := make([]ConstantInfo, cpCount)
 	for i := 1; i < cpCount; i++ {
 		cp[i] = readConstantInfo(reader, cp)

@@ -19,6 +19,7 @@ type Class struct {
 	instanceSlotCount uint
 	staticSlotCount   uint
 	staticVars        Slots
+	initStarted       bool
 }
 
 func newClass(cf *classfile.ClassFile) *Class {
@@ -58,54 +59,48 @@ func (self *Class) IsEnum() bool {
 	return 0 != self.accessFlags&ACC_ENUM
 }
 
-func (self *Class) ConstantPool() *ConstantPool {
-	return self.constantPool
-}
+// getters
 func (self *Class) Name() string {
 	return self.name
 }
-func (self *Class) Methods() []*Method {
-	return self.methods
+func (self *Class) ConstantPool() *ConstantPool {
+	return self.constantPool
 }
 func (self *Class) Fields() []*Field {
 	return self.fields
 }
+func (self *Class) Methods() []*Method {
+	return self.methods
+}
 func (self *Class) SuperClass() *Class {
 	return self.superClass
 }
-func (self *Class) Interfaces() []*Class {
-	return self.interfaces
+func (self *Class) StaticVars() Slots {
+	return self.staticVars
 }
 
+func (self *Class) InitStarted() bool {
+	return self.initStarted
+}
+
+// jvms 5.4.4
 func (self *Class) isAccessibleTo(other *Class) bool {
-	return self.IsPublic() || self.getPackageName() == other.getPackageName()
+	return self.IsPublic() ||
+		self.GetPackageName() == other.GetPackageName()
 }
 
-func (self *Class) getPackageName() string {
+func (self *Class) GetPackageName() string {
 	if i := strings.LastIndex(self.name, "/"); i >= 0 {
 		return self.name[:i]
 	}
 	return ""
 }
-func (self *Class) isSubClassOf(c *Class) bool {
-	for k := self.superClass; k != nil; k = k.superClass {
-		if k == c {
-			return true
-		}
-	}
-	return false
-}
-
-func (self *Class) NewObject() *Object {
-	return newObject(self)
-}
-
-func (self *Class) StaticVars() Slots {
-	return self.staticVars
-}
 
 func (self *Class) GetMainMethod() *Method {
 	return self.getStaticMethod("main", "([Ljava/lang/String;)V")
+}
+func (self *Class) GetClinitMethod() *Method {
+	return self.getStaticMethod("<clinit>", "()V")
 }
 
 func (self *Class) getStaticMethod(name, descriptor string) *Method {
@@ -118,4 +113,12 @@ func (self *Class) getStaticMethod(name, descriptor string) *Method {
 		}
 	}
 	return nil
+}
+
+func (self *Class) NewObject() *Object {
+	return newObject(self)
+}
+
+func (self *Class) StartInit() {
+	self.initStarted = true
 }

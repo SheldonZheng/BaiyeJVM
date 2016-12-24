@@ -18,7 +18,7 @@ func (self *Thread) PushFrame(frame *Frame) {
 }
 
 func (self *Thread) PopFrame() *Frame {
-	return self.stack.top()
+	return self.stack.pop()
 }
 
 func (self *Thread) NewFrame(method *heap.Method) *Frame {
@@ -30,4 +30,15 @@ func (self *Thread) PC() int {
 }
 func (self *Thread) SetPC(pc int) {
 	self.pc = pc
+}
+
+func (self *Thread) CurrentFrame() *Frame {
+	return self.stack.top()
+}
+func (self *Thread) TopFrame() *Frame {
+	return self.stack.top()
+}
+
+func (self *Thread) IsStackEmpty() bool {
+	return self.stack.isEmpty()
 }

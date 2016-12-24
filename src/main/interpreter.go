@@ -50,6 +50,14 @@ func loop(thread *rtda.Thread, logInst bool) {
 	}
 }
 
+func logInstruction(frame *rtda.Frame, inst base.Instruction) {
+	method := frame.Method()
+	className := method.Class().Name()
+	methodName := method.Name()
+	pc := frame.Thread().PC()
+	fmt.Printf("%v.%v() #%2d %T %v\n", className, methodName, pc, inst, inst)
+}
+
 func logFrames(thread *rtda.Thread) {
 	for !thread.IsStackEmpty() {
 		frame := thread.PopFrame()
@@ -58,12 +66,4 @@ func logFrames(thread *rtda.Thread) {
 		fmt.Printf(">> pc:%4d %v.%v%v \n",
 			frame.NextPC(), className, method.Name(), method.Descriptor())
 	}
-}
-
-func logInstruction(frame *rtda.Frame, inst base.Instruction) {
-	method := frame.Method()
-	className := method.Class().Name()
-	methodName := method.Name()
-	pc := frame.Thread().PC()
-	fmt.Printf("%v.%v() #%2d %T %v\n", className, methodName, pc, inst, inst)
 }

@@ -18,7 +18,11 @@ func (self *Class) isImplements(iface *Class) bool {
 }
 
 func (self *Class) isSuperClassOf(c *Class) bool {
-	return c.isSubClassOf(self)
+	return c.IsSubClassOf(self)
+}
+
+func (self *Class) IsSuperClassOf(c *Class) bool {
+	return c.IsSubClassOf(self)
 }
 
 func (self *Class) isSuperInterfaceOf(iface *Class) bool {
@@ -28,6 +32,15 @@ func (self *Class) isSuperInterfaceOf(iface *Class) bool {
 func (self *Class) isSubInterfaceOf(iface *Class) bool {
 	for _, superInterface := range self.interfaces {
 		if superInterface == iface || superInterface.isSubInterfaceOf(iface) {
+			return true
+		}
+	}
+	return false
+}
+
+func (self *Class) IsSubClassOf(other *Class) bool {
+	for c := self.superClass; c != nil; c = c.superClass {
+		if c == other {
 			return true
 		}
 	}

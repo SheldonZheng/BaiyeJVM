@@ -1,10 +1,10 @@
 package rtda
 
 import "rtda/heap"
-
 type Thread struct {
 	pc    int // the address of the instruction currently being executed
 	stack *Stack
+		  // todo
 }
 
 func NewThread() *Thread {
@@ -13,23 +13,18 @@ func NewThread() *Thread {
 	}
 }
 
-func (self *Thread) PushFrame(frame *Frame) {
-	self.stack.push(frame)
-}
-
-func (self *Thread) PopFrame() *Frame {
-	return self.stack.pop()
-}
-
-func (self *Thread) NewFrame(method *heap.Method) *Frame {
-	return newFrame(self, method)
-}
-
 func (self *Thread) PC() int {
 	return self.pc
 }
 func (self *Thread) SetPC(pc int) {
 	self.pc = pc
+}
+
+func (self *Thread) PushFrame(frame *Frame) {
+	self.stack.push(frame)
+}
+func (self *Thread) PopFrame() *Frame {
+	return self.stack.pop()
 }
 
 func (self *Thread) CurrentFrame() *Frame {
@@ -41,4 +36,8 @@ func (self *Thread) TopFrame() *Frame {
 
 func (self *Thread) IsStackEmpty() bool {
 	return self.stack.isEmpty()
+}
+
+func (self *Thread) NewFrame(method *heap.Method) *Frame {
+	return newFrame(self, method)
 }

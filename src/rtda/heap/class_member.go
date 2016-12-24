@@ -33,6 +33,21 @@ func (self *ClassMember) IsFinal() bool {
 func (self *ClassMember) IsSynthetic() bool {
 	return 0 != self.accessFlags&ACC_SYNTHETIC
 }
+func (self *ClassMember) isAccessibleTo(d *Class) bool {
+	if self.IsPublic() {
+		return true
+	}
+	c := self.class
+	if self.IsProtected() {
+		return d == c || d.isSubClassOf(c) ||
+			c.getPackageName() == d.getPackageName()
+	}
+	if !self.IsPrivate() {
+		return c.getPackageName() == d.getPackageName()
+	}
+	return d == c
+}
+
 
 func (self *ClassMember) Name() string {
 	return self.name

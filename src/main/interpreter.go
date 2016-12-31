@@ -8,11 +8,12 @@ import (
 	"rtda/heap"
 )
 
-func interpret(method *heap.Method, logInst bool) {
+func interpret(method *heap.Method, logInst bool,args []string) {
 	thread := rtda.NewThread()
 	frame := thread.NewFrame(method)
 	thread.PushFrame(frame)
-
+	jArgs := createArgsArray(method.Class().Loader(), args)
+	frame.LocalVars().SetRef(0, jArgs)
 	defer catchErr(thread)
 	loop(thread, logInst)
 }
@@ -66,4 +67,14 @@ func logFrames(thread *rtda.Thread) {
 		fmt.Printf(">> pc:%4d %v.%v%v \n",
 			frame.NextPC(), className, method.Name(), method.Descriptor())
 	}
+}
+
+func createArgsArray(loader *heap.ClassLoader, args []string) *heap.Object {
+	stringClass := loader.LoadClass("java/lang/String")
+	argsArr := stringClass.ArrayClass().NewArray(uint(len(args)))
+	jArgs := argsArr.Refs()
+	for i, arg := range args {
+		jArgs[i] = heap.JString(loader, arg)
+	}
+	return argsArr
 }

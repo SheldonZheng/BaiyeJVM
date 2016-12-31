@@ -143,7 +143,7 @@ func (self *Class) isJioSerializable() bool {
 	return self.name == "java/io/Serializable"
 }
 
-func (self *Class) getField(name, descriptor , isStatic string) *Field {
+func (self *Class) getField(name, descriptor string, isStatic bool) *Field {
 	for c := self; c != nil; c = c.superClass {
 		for _, field := range c.fields {
 			if field.IsStatic() == isStatic &&

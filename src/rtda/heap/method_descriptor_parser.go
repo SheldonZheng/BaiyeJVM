@@ -130,5 +130,3 @@ func (self *MethodDescriptorParser) parseArrayType() string {
 	descriptor := self.raw[arrStart:arrEnd]
 	return descriptor
 }
-
-

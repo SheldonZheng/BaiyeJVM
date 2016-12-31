@@ -1,14 +1,14 @@
 package heap
 
 type Object struct {
-	class  *Class
-	data interface{}
+	class *Class
+	data  interface{}
 }
 
 func newObject(class *Class) *Object {
 	return &Object{
 		class: class,
-		data: newSlots(class.instanceSlotCount),
+		data:  newSlots(class.instanceSlotCount),
 	}
 }
 

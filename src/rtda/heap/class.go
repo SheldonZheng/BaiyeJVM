@@ -76,7 +76,7 @@ func (self *Class) SuperClass() *Class {
 	return self.superClass
 }
 
-func (self *Class) Loader() *ClassLoader{
+func (self *Class) Loader() *ClassLoader {
 	return self.loader
 }
 

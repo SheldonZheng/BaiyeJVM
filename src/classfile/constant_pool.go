@@ -1,6 +1,5 @@
 package classfile
 
-
 type ConstantPool []ConstantInfo
 
 type ConstantInfo interface {

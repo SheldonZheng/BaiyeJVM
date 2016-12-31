@@ -4,9 +4,9 @@ import "classfile"
 
 type Method struct {
 	ClassMember
-	maxStack  uint
-	maxLocals uint
-	code      []byte
+	maxStack     uint
+	maxLocals    uint
+	code         []byte
 	argSlotCount uint
 }
 

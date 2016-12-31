@@ -1,8 +1,8 @@
 package stores
 
 import (
-	"rtda"
 	"instructions/base"
+	"rtda"
 	"rtda/heap"
 )
 
@@ -135,4 +135,3 @@ func checkIndex(arrLen int, index int32) {
 		panic("ArrayIndexOutOfBoundsException")
 	}
 }
-

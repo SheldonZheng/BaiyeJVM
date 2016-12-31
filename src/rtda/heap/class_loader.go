@@ -7,16 +7,16 @@ import (
 )
 
 type ClassLoader struct {
-	cp *classpath.Classpath
+	cp          *classpath.Classpath
 	verboseFlag bool
-	classMap map[string]*Class
+	classMap    map[string]*Class
 }
 
 func NewClassLoader(cp *classpath.Classpath, verboseFlag bool) *ClassLoader {
 	return &ClassLoader{
-		cp: cp,
+		cp:          cp,
 		verboseFlag: verboseFlag,
-		classMap: make(map[string]*Class),
+		classMap:    make(map[string]*Class),
 	}
 }
 
@@ -33,10 +33,10 @@ func (self *ClassLoader) LoadClass(name string) *Class {
 func (self *ClassLoader) loadArrayClass(name string) *Class {
 	class := &Class{
 		accessFlags: ACC_PUBLIC, // todo
-		name: name,
-		loader: self,
+		name:        name,
+		loader:      self,
 		initStarted: true,
-		superClass: self.LoadClass("java/lang/Object"),
+		superClass:  self.LoadClass("java/lang/Object"),
 		interfaces: []*Class{
 			self.LoadClass("java/lang/Cloneable"),
 			self.LoadClass("java/io/Serializable"),

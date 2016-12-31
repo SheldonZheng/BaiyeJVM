@@ -7,7 +7,7 @@ import (
 )
 
 type MULTI_ANEW_ARRAY struct {
-	index uint16
+	index      uint16
 	dimensions uint8
 }
 
@@ -44,7 +44,7 @@ func newMultiDimensionalArray(counts []int32, arrClass *heap.Class) *heap.Object
 		refs := arr.Refs()
 		for i := range refs {
 			//Remove counts[0]
-			refs[i] = newMultiDimensionalArray (counts[1:], arrClass.ComponentClass())
+			refs[i] = newMultiDimensionalArray(counts[1:], arrClass.ComponentClass())
 		}
 	}
 	return arr

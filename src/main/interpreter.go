@@ -8,7 +8,7 @@ import (
 	"rtda/heap"
 )
 
-func interpret(method *heap.Method, logInst bool,args []string) {
+func interpret(method *heap.Method, logInst bool, args []string) {
 	thread := rtda.NewThread()
 	frame := thread.NewFrame(method)
 	thread.PushFrame(frame)

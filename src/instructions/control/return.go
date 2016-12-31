@@ -5,7 +5,7 @@ import (
 	"rtda"
 )
 
-type RETURN struct{ base.NoOperandsInstruction } // Return void from method
+type RETURN struct{ base.NoOperandsInstruction }  // Return void from method
 type ARETURN struct{ base.NoOperandsInstruction } // Return reference from method
 type DRETURN struct{ base.NoOperandsInstruction } // Return double from method
 type FRETURN struct{ base.NoOperandsInstruction } // Return float from method
@@ -15,7 +15,6 @@ type LRETURN struct{ base.NoOperandsInstruction } // Return long from method
 func (self *RETURN) Execute(frame *rtda.Frame) {
 	frame.Thread().PopFrame()
 }
-
 
 func (self *ARETURN) Execute(frame *rtda.Frame) {
 	thread := frame.Thread()
@@ -48,7 +47,6 @@ func (self *IRETURN) Execute(frame *rtda.Frame) {
 	val := currentFrame.OperandStack().PopInt()
 	invokerFrame.OperandStack().PushInt(val)
 }
-
 
 func (self *LRETURN) Execute(frame *rtda.Frame) {
 	thread := frame.Thread()

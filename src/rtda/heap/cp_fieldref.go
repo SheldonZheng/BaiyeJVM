@@ -51,4 +51,3 @@ func lookupField(c *Class, name, descriptor string) *Field {
 	}
 	return nil
 }
-

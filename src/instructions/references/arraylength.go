@@ -16,4 +16,3 @@ func (self *ARRAY_LENGTH) Execute(frame *rtda.Frame) {
 	arrLen := arrRef.ArrayLength()
 	stack.PushInt(arrLen)
 }
-

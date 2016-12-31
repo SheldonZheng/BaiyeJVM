@@ -75,6 +75,11 @@ func (self *Class) Methods() []*Method {
 func (self *Class) SuperClass() *Class {
 	return self.superClass
 }
+
+func (self *Class) Loader() *ClassLoader{
+	return self.loader
+}
+
 func (self *Class) StaticVars() Slots {
 	return self.staticVars
 }

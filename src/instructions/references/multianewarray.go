@@ -43,6 +43,7 @@ func newMultiDimensionalArray(counts []int32, arrClass *heap.Class) *heap.Object
 	if len(counts) > 1 {
 		refs := arr.Refs()
 		for i := range refs {
+			//Remove counts[0]
 			refs[i] = newMultiDimensionalArray (counts[1:], arrClass.ComponentClass())
 		}
 	}

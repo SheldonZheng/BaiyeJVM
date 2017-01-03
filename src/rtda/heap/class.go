@@ -20,6 +20,7 @@ type Class struct {
 	staticSlotCount   uint
 	staticVars        Slots
 	initStarted       bool
+	jClass		  *Object
 }
 
 func newClass(cf *classfile.ClassFile) *Class {
@@ -87,6 +88,10 @@ func (self *Class) StaticVars() Slots {
 func (self *Class) InitStarted() bool {
 	return self.initStarted
 }
+func (self *Class) JClass() *Object {
+	return self.jClass
+}
+
 
 // jvms 5.4.4
 func (self *Class) isAccessibleTo(other *Class) bool {

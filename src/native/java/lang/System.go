@@ -1,14 +1,13 @@
 package lang
 
-import (
-	"native"
-	"rtda"
-	"rtda/heap"
-)
+import "native"
+import "rtda"
+import "rtda/heap"
+
+const jlSystem = "java/lang/System"
 
 func init() {
-	native.Register("java/lang/System", "arraycopy",
-		"(Ljava/lang/Object;ILjava/lang/Object;II)V", arraycopy)
+	native.Register(jlSystem, "arraycopy", "(Ljava/lang/Object;ILjava/lang/Object;II)V", arraycopy)
 }
 
 func arraycopy(frame *rtda.Frame) {
@@ -18,6 +17,7 @@ func arraycopy(frame *rtda.Frame) {
 	dest := vars.GetRef(2)
 	destPos := vars.GetInt(3)
 	length := vars.GetInt(4)
+
 	if src == nil || dest == nil {
 		panic("java.lang.NullPointerException")
 	}

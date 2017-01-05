@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"instructions"
 	"instructions/base"
 	"rtda"
 	"rtda/heap"
+	"instructions"
 )
 
 func interpret(method *heap.Method, logInst bool, args []string) {
@@ -35,6 +35,7 @@ func loop(thread *rtda.Thread, logInst bool) {
 		// decode
 		reader.Reset(frame.Method().Code(), pc)
 		opcode := reader.ReadUint8()
+		//fmt.Println(opcode)
 		inst := instructions.NewInstruction(opcode)
 		inst.FetchOperands(reader)
 		frame.SetNextPC(reader.PC())
@@ -42,6 +43,7 @@ func loop(thread *rtda.Thread, logInst bool) {
 		if logInst {
 			logInstruction(frame, inst)
 		}
+
 
 		// execute
 		inst.Execute(frame)

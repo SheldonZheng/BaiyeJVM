@@ -1,12 +1,12 @@
 package lang
 
-import (
-	"native"
-	"rtda"
-)
+import "native"
+import "rtda"
+
+const jlObject = "java/lang/Object"
 
 func init() {
-	native.Register("java/lang/Object", "getClass", "()Ljava/lang/Class;", getClass)
+	native.Register(jlObject, "getClass", "()Ljava/lang/Class;", getClass)
 }
 
 func getClass(frame *rtda.Frame) {

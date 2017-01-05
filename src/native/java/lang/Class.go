@@ -1,21 +1,21 @@
 package lang
 
-import (
-	"native"
-	"rtda"
-	"rtda/heap"
-)
+import "native"
+import "rtda"
+import "rtda/heap"
+
+const jlClass = "java/lang/Class"
 
 func init() {
-	native.Register("java/lang/Class", "getPrimitiveClass",
-		"(Ljava/lang/String;)Ljava/lang/Class;", getPrimitiveClass)
-	native.Register("java/lang/Class", "getName0", "()Ljava/lang/String;", getName0)
-	native.Register("java/lang/Class", "desiredAssertionStatus0",
-		"(Ljava/lang/Class;)Z", desiredAssertionStatus0)
+	native.Register(jlClass, "getPrimitiveClass", "(Ljava/lang/String;)Ljava/lang/Class;", getPrimitiveClass)
+	native.Register(jlClass, "getName0", "()Ljava/lang/String;", getName0)
+	native.Register(jlClass, "desiredAssertionStatus0", "(Ljava/lang/Class;)Z", desiredAssertionStatus0)
+	//native.Register(jlClass, "isInterface", "()Z", isInterface)
+	//native.Register(jlClass, "isPrimitive", "()Z", isPrimitive)
 }
 
 func getPrimitiveClass(frame *rtda.Frame) {
-	nameObj := frame.LocalVars().GetThis()
+	nameObj := frame.LocalVars().GetRef(0)
 	name := heap.GoString(nameObj)
 	loader := frame.Method().Class().Loader()
 	class := loader.LoadClass(name).JClass()
@@ -34,4 +34,26 @@ func getName0(frame *rtda.Frame) {
 
 func desiredAssertionStatus0(frame *rtda.Frame) {
 	frame.OperandStack().PushBoolean(false)
+}
+
+// public native boolean isInterface();
+// ()Z
+func isInterface(frame *rtda.Frame) {
+	vars := frame.LocalVars()
+	this := vars.GetThis()
+	class := this.Extra().(*heap.Class)
+
+	stack := frame.OperandStack()
+	stack.PushBoolean(class.IsInterface())
+}
+
+// public native boolean isPrimitive();
+// ()Z
+func isPrimitive(frame *rtda.Frame) {
+	vars := frame.LocalVars()
+	this := vars.GetThis()
+	class := this.Extra().(*heap.Class)
+
+	stack := frame.OperandStack()
+	stack.PushBoolean(class.IsPrimitive())
 }

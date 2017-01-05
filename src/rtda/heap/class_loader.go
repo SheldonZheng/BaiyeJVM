@@ -14,9 +14,9 @@ type ClassLoader struct {
 
 func NewClassLoader(cp *classpath.Classpath, verboseFlag bool) *ClassLoader {
 	loader := &ClassLoader{
-		cp: cp,
+		cp:          cp,
 		verboseFlag: verboseFlag,
-		classMap: make(map[string]*Class),
+		classMap:    make(map[string]*Class),
 	}
 	loader.loadBasicClasses()
 	loader.loadPrimitiveClasses()

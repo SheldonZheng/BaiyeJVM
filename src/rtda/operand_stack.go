@@ -95,3 +95,7 @@ func (self *OperandStack) PushBoolean(val bool) {
 func (self *OperandStack) PopBoolean() bool {
 	return self.PopInt() == 1
 }
+
+func (self *OperandStack) Size() uint {
+	return self.size
+}

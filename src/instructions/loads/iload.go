@@ -34,3 +34,7 @@ func (self *ILOAD_2) Execute(frame *rtda.Frame) {
 func (self *ILOAD_3) Execute(frame *rtda.Frame) {
 	_iload(frame, 3)
 }
+
+func (self *ILOAD_0) Execute(frame *rtda.Frame) {
+	_iload(frame, 0)
+}

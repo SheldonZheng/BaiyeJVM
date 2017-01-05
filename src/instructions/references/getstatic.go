@@ -6,6 +6,7 @@ import (
 	"rtda/heap"
 )
 
+// Get static field from class
 type GET_STATIC struct{ base.Index16Instruction }
 
 func (self *GET_STATIC) Execute(frame *rtda.Frame) {
@@ -18,13 +19,16 @@ func (self *GET_STATIC) Execute(frame *rtda.Frame) {
 		base.InitClass(frame.Thread(), class)
 		return
 	}
+
 	if !field.IsStatic() {
 		panic("java.lang.IncompatibleClassChangeError")
 	}
+
 	descriptor := field.Descriptor()
 	slotId := field.SlotId()
 	slots := class.StaticVars()
 	stack := frame.OperandStack()
+
 	switch descriptor[0] {
 	case 'Z', 'B', 'C', 'S', 'I':
 		stack.PushInt(slots.GetInt(slotId))

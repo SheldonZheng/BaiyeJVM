@@ -1,9 +1,9 @@
 package lang
 
 import (
+	"math"
 	"native"
 	"rtda"
-	"math"
 )
 
 const jlFloat = "java/lang/Float"

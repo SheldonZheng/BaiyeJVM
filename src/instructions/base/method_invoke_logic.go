@@ -3,7 +3,6 @@ package base
 import (
 	"rtda"
 	"rtda/heap"
-	"fmt"
 )
 
 func InvokeMethod(invokerFrame *rtda.Frame, method *heap.Method) {

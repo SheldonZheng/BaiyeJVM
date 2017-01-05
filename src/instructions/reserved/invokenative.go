@@ -6,6 +6,8 @@ import (
 	"native"
 )
 
+import _ "native/java/lang"
+
 type INVOKE_NATIVE struct{ base.NoOperandsInstruction }
 
 func (self *INVOKE_NATIVE) Execute(frame *rtda.Frame) {

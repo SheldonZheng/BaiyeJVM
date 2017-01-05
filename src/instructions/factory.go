@@ -17,7 +17,6 @@ import . "instructions/stack"
 import . "instructions/references"
 import . "instructions/reserved"
 
-
 // NoOperandsInstruction singletons
 var (
 	nop         = &NOP{}

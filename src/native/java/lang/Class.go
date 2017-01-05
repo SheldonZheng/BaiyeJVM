@@ -22,7 +22,6 @@ func getPrimitiveClass(frame *rtda.Frame) {
 	frame.OperandStack().PushRef(class)
 }
 
-
 // private native String getName0();
 func getName0(frame *rtda.Frame) {
 	this := frame.LocalVars().GetThis()

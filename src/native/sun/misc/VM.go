@@ -1,9 +1,9 @@
 package misc
 
 import (
+	"instructions/base"
 	"native"
 	"rtda"
-	"instructions/base"
 	"rtda/heap"
 )
 
@@ -28,4 +28,3 @@ func initialize(frame *rtda.Frame) {
 		"(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;")
 	base.InvokeMethod(frame, setPropMethod)
 }
-

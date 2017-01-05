@@ -54,7 +54,7 @@ func (self *LDIV) Execute(frame *rtda.Frame) {
 	if v2 == 0 {
 		panic("java.lang.ArithmeticException: / by zero")
 	}
-		result := v1 / v2
-		stack.PushLong(result)
+	result := v1 / v2
+	stack.PushLong(result)
 
 }

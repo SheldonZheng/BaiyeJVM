@@ -41,6 +41,6 @@ func (self *GET_STATIC) Execute(frame *rtda.Frame) {
 	case 'L', '[':
 		stack.PushRef(slots.GetRef(slotId))
 	default:
-	// todo
+		// todo
 	}
 }

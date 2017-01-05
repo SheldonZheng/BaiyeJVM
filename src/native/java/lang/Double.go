@@ -1,9 +1,9 @@
 package lang
 
 import (
+	"math"
 	"native"
 	"rtda"
-	"math"
 )
 
 const jlDouble = "java/lang/Double"
@@ -28,4 +28,3 @@ func longBitsToDouble(frame *rtda.Frame) {
 	value := math.Float64frombits(uint64(bits)) // todo
 	frame.OperandStack().PushDouble(value)
 }
-

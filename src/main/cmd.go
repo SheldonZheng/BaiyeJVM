@@ -1,4 +1,4 @@
-	package main
+package main
 
 import "flag"
 import "fmt"
@@ -36,8 +36,8 @@ func parseCmd() *Cmd {
 		cmd.args = args[1:]
 	}
 	return cmd
-	}
+}
 
-	func printUsage() {
-		fmt.Printf("Usage: %s [-option] class [args...]\n", os.Args[0])
-	}
+func printUsage() {
+	fmt.Printf("Usage: %s [-option] class [args...]\n", os.Args[0])
+}

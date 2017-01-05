@@ -19,4 +19,3 @@ func (self *SignatureAttribute) readInfo(reader *ClassReader) {
 func (self *SignatureAttribute) Signature() string {
 	return self.cp.getUtf8(self.signatureIndex)
 }
-

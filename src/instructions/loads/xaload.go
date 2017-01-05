@@ -5,6 +5,7 @@ import (
 	"rtda"
 	"rtda/heap"
 )
+
 // Load reference from array
 type AALOAD struct{ base.NoOperandsInstruction }
 

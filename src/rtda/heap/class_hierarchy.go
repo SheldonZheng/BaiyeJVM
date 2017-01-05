@@ -1,9 +1,38 @@
 package heap
 
-func (self *Class) IsAssignableFrom(cls *Class) bool {
-	return self == cls ||
-		self.isSuperClassOf(cls) ||
-		self.isSuperInterfaceOf(cls)
+func (self *Class) IsAssignableFrom(other *Class) bool {
+	s, t := other, self
+	if s == t {
+		return true
+	}
+	if !s.IsArray() {
+		if !s.IsInterface() {
+			if !t.IsInterface() {
+				return s.IsSubClassOf(t)
+			} else {
+				return s.IsImplements(t)
+			}
+		} else {
+			if !t.IsInterface() {
+				return t.isJlObject()
+			} else {
+				return t.isSuperInterfaceOf(s)
+			}
+		}
+	} else {
+		if !t.IsArray() {
+			if !t.IsInterface() {
+				return t.isJlObject()
+			} else {
+				return t.isJlCloneable() || t.isJioSerializable()
+			}
+		} else {
+			sc := s.ComponentClass()
+			tc := t.ComponentClass()
+			return sc == tc || tc.IsAssignableFrom(sc)
+		}
+	}
+	return false
 }
 
 func (self *Class) isImplements(iface *Class) bool {

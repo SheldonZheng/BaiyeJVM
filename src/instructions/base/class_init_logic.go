@@ -28,4 +28,3 @@ func initSuperClass(thread *rtda.Thread, class *heap.Class) {
 		}
 	}
 }
-

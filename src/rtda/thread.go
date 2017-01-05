@@ -1,10 +1,11 @@
 package rtda
 
 import "rtda/heap"
+
 type Thread struct {
 	pc    int // the address of the instruction currently being executed
 	stack *Stack
-		  // todo
+	// todo
 }
 
 func NewThread() *Thread {

@@ -40,10 +40,10 @@ func (self *IREM) Execute(frame *rtda.Frame) {
 
 	if v2 == 0 {
 		panic("java.lang.ArithmeticException: / by zero")
-	} else {
-		result := v1 % v2
-		stack.PushInt(result)
 	}
+	result := v1 % v2
+	stack.PushInt(result)
+
 }
 
 // Long 求余
@@ -56,8 +56,8 @@ func (self *LREM) Execute(frame *rtda.Frame) {
 
 	if v2 == 0 {
 		panic("java.lang.ArithmeticException: / by zero")
-	} else {
-		result := v1 % v2
-		stack.PushLong(result)
 	}
+	result := v1 % v2
+	stack.PushLong(result)
+
 }

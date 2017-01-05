@@ -5,7 +5,7 @@ import (
 	"rtda"
 	"rtda/heap"
 )
-
+// Load reference from array
 type AALOAD struct{ base.NoOperandsInstruction }
 
 func (self *AALOAD) Execute(frame *rtda.Frame) {

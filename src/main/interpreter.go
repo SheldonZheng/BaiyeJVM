@@ -58,7 +58,11 @@ func logInstruction(frame *rtda.Frame, inst base.Instruction) {
 	className := method.Class().Name()
 	methodName := method.Name()
 	pc := frame.Thread().PC()
-	fmt.Printf("%v.%v() #%2d %T %v\n", className, methodName, pc, inst, inst)
+	size := uint(0)
+	if frame != nil && frame.OperandStack() != nil && frame.OperandStack().Size() != 0{
+		size = frame.OperandStack().Size();
+	}
+	fmt.Printf("%v.%v() #%2d %T %v size:%d\n", className, methodName, pc, inst, inst,size)
 }
 
 func logFrames(thread *rtda.Thread) {

@@ -73,18 +73,15 @@ func (self *Class) Fields() []*Field {
 func (self *Class) Methods() []*Method {
 	return self.methods
 }
-func (self *Class) SuperClass() *Class {
-	return self.superClass
-}
-
 func (self *Class) Loader() *ClassLoader {
 	return self.loader
 }
-
+func (self *Class) SuperClass() *Class {
+	return self.superClass
+}
 func (self *Class) StaticVars() Slots {
 	return self.staticVars
 }
-
 func (self *Class) InitStarted() bool {
 	return self.initStarted
 }
@@ -92,6 +89,9 @@ func (self *Class) JClass() *Object {
 	return self.jClass
 }
 
+func (self *Class) StartInit() {
+	self.initStarted = true
+}
 
 // jvms 5.4.4
 func (self *Class) isAccessibleTo(other *Class) bool {
@@ -107,35 +107,38 @@ func (self *Class) GetPackageName() string {
 }
 
 func (self *Class) GetMainMethod() *Method {
-	return self.getStaticMethod("main", "([Ljava/lang/String;)V")
+	return self.getMethod("main", "([Ljava/lang/String;)V", true)
 }
 func (self *Class) GetClinitMethod() *Method {
-	return self.getStaticMethod("<clinit>", "()V")
+	return self.getMethod("<clinit>", "()V", true)
 }
 
-func (self *Class) getStaticMethod(name, descriptor string) *Method {
-	for _, method := range self.methods {
-		if method.IsStatic() &&
-			method.name == name &&
-			method.descriptor == descriptor {
+func (self *Class) getMethod(name, descriptor string, isStatic bool) *Method {
+	for c := self; c != nil; c = c.superClass {
+		for _, method := range c.methods {
+			if method.IsStatic() == isStatic &&
+				method.name == name &&
+				method.descriptor == descriptor {
 
-			return method
+				return method
+			}
 		}
 	}
 	return nil
 }
 
-func (self *Class) ArrayClass() *Class {
-	arrayClassName := getArrayClassName(self.name)
-	return self.loader.LoadClass(arrayClassName)
-}
+func (self *Class) getField(name, descriptor string, isStatic bool) *Field {
+	for c := self; c != nil; c = c.superClass {
+		for _, field := range c.fields {
+			if field.IsStatic() == isStatic &&
+				field.name == name &&
+				field.descriptor == descriptor {
 
-func (self *Class) NewObject() *Object {
-	return newObject(self)
-}
-
-func (self *Class) StartInit() {
-	self.initStarted = true
+				return field
+			}
+		}
+	}
+	return nil
 }
 
 func (self *Class) isJlObject() bool {
@@ -148,16 +151,13 @@ func (self *Class) isJioSerializable() bool {
 	return self.name == "java/io/Serializable"
 }
 
-func (self *Class) getField(name, descriptor string, isStatic bool) *Field {
-	for c := self; c != nil; c = c.superClass {
-		for _, field := range c.fields {
-			if field.IsStatic() == isStatic &&
-				field.name == name && field.descriptor == descriptor {
-				return field
-			}
-		}
-	}
-	return nil
+func (self *Class) NewObject() *Object {
+	return newObject(self)
+}
+
+func (self *Class) ArrayClass() *Class {
+	arrayClassName := getArrayClassName(self.name)
+	return self.loader.LoadClass(arrayClassName)
 }
 
 func (self *Class) JavaName() string {
@@ -167,4 +167,17 @@ func (self *Class) JavaName() string {
 func (self *Class) IsPrimitive() bool {
 	_, ok := primitiveTypes[self.name]
 	return ok
+}
+
+func (self *Class) GetInstanceMethod(name, descriptor string) *Method {
+	return self.getMethod(name, descriptor, false)
+}
+
+func (self *Class) GetRefVar(fieldName, fieldDescriptor string) *Object {
+	field := self.getField(fieldName, fieldDescriptor, true)
+	return self.staticVars.GetRef(field.slotId)
+}
+func (self *Class) SetRefVar(fieldName, fieldDescriptor string, ref *Object) {
+	field := self.getField(fieldName, fieldDescriptor, true)
+	self.staticVars.SetRef(field.slotId, ref)
 }

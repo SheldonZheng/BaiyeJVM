@@ -1,12 +1,13 @@
 package reserved
 
-import (
-	"instructions/base"
-	"rtda"
-	"native"
-)
+
+import "instructions/base"
+import "native"
+import "rtda"
 
 import _ "native/java/lang"
+import _ "native/sun/misc"
+
 
 type INVOKE_NATIVE struct{ base.NoOperandsInstruction }
 

@@ -46,3 +46,7 @@ func (self *Thread) NewFrame(method *heap.Method) *Frame {
 func (self *Thread) ClearStack() {
 	self.stack.clear()
 }
+
+func (self *Thread) GetFrames() []*Frame {
+	return self.stack.getFrames()
+}

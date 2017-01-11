@@ -56,3 +56,11 @@ func (self *Stack) clear() {
 		self.pop()
 	}
 }
+
+func (self *Stack) getFrames() []*Frame {
+	frames := make([]*Frame, 0, self.size)
+	for frame := self._top; frame != nil; frame = frame.lower {
+		frames = append(frames, frame)
+	}
+	return frames
+}

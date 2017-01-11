@@ -68,6 +68,7 @@ func newAttributeInfo(attrName string, attrLen uint32, cp ConstantPool) Attribut
 		return &SignatureAttribute{cp: cp}
 	case "SourceFile":
 		return &SourceFileAttribute{cp: cp}
+
 	// case "SourceDebugExtension":
 	// case "StackMapTable":
 	case "Synthetic":

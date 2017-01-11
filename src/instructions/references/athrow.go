@@ -54,3 +54,4 @@ func handleUncaughtException(thread *rtda.Thread, ex *heap.Object) {
 		println("\tat " + ste.String())
 	}
 }
+

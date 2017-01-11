@@ -24,7 +24,7 @@ func NewClassLoader(cp *classpath.Classpath, verboseFlag bool) *ClassLoader {
 }
 
 func (self *ClassLoader) loadPrimitiveClasses() {
-	for primitiveType, _ := range primitiveTypes {
+	for primitiveType := range primitiveTypes {
 		self.loadPrimitiveClass(primitiveType)
 	}
 }

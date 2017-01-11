@@ -99,3 +99,10 @@ func (self *OperandStack) PopBoolean() bool {
 func (self *OperandStack) Size() uint {
 	return self.size
 }
+
+func (self *OperandStack) Clear() {
+	self.size = 0
+	for i := range self.slots {
+		self.slots[i].ref = nil
+	}
+}

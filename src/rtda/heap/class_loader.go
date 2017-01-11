@@ -6,7 +6,6 @@ import (
 	"fmt"
 )
 
-
 type ClassLoader struct {
 	cp          *classpath.Classpath
 	verboseFlag bool

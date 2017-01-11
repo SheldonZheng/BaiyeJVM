@@ -1,27 +1,27 @@
 package main
 
 import (
+	"classpath"
+	"fmt"
+	"instructions/base"
 	"rtda"
 	"rtda/heap"
-	"classpath"
-	"instructions/base"
 	"strings"
-	"fmt"
 )
 
 type JVM struct {
-	cmd *Cmd
+	cmd         *Cmd
 	classLoader *heap.ClassLoader
-	mainThread *rtda.Thread
+	mainThread  *rtda.Thread
 }
 
 func newJVM(cmd *Cmd) *JVM {
 	cp := classpath.Parse(cmd.XjreOption, cmd.cpOption)
 	classLoader := heap.NewClassLoader(cp, cmd.verboseClassFlag)
 	return &JVM{
-		cmd: cmd,
+		cmd:         cmd,
 		classLoader: classLoader,
-		mainThread: rtda.NewThread(),
+		mainThread:  rtda.NewThread(),
 	}
 }
 

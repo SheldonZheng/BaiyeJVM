@@ -12,7 +12,6 @@ import _ "native/sun/misc"
 import _ "native/sun/io"
 import _ "native/sun/reflect"
 
-
 type INVOKE_NATIVE struct{ base.NoOperandsInstruction }
 
 func (self *INVOKE_NATIVE) Execute(frame *rtda.Frame) {

@@ -22,13 +22,12 @@ func FindNativeMethod(className, methodName, methodDescriptor string) NativeMeth
 		return emptyNativeMethod
 	}*/
 	if methodDescriptor == "()V" {
-		if methodName == "registerNatives" || methodName == "initIDs"{
+		if methodName == "registerNatives" || methodName == "initIDs" {
 			return emptyNativeMethod
 		}
 	}
 	return nil
 }
-
 
 func emptyNativeMethod(frame *rtda.Frame) {
 	// do nothing

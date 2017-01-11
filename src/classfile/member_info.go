@@ -1,4 +1,5 @@
 package classfile
+
 type MemberInfo struct {
 	cp              ConstantPool
 	accessFlags     uint16

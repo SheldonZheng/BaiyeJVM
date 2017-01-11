@@ -109,6 +109,7 @@ func (self *ClassFile) Methods() []*MemberInfo {
 	return self.methods
 }
 
+
 func (self *ClassFile) SourceFileAttribute() *SourceFileAttribute {
 	for _, attrInfo := range self.attributes {
 		switch attrInfo.(type) {

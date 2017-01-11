@@ -5,6 +5,7 @@ import (
 	"instructions"
 	"instructions/base"
 	"rtda"
+	"rtda/heap"
 )
 
 func interpret(thread *rtda.Thread, logInst bool) {

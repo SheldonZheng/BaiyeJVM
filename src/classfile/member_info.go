@@ -1,5 +1,4 @@
 package classfile
-
 type MemberInfo struct {
 	cp              ConstantPool
 	accessFlags     uint16
@@ -8,6 +7,7 @@ type MemberInfo struct {
 	attributes      []AttributeInfo
 }
 
+// read field or method table
 func readMembers(reader *ClassReader, cp ConstantPool) []*MemberInfo {
 	memberCount := reader.readUint16()
 	members := make([]*MemberInfo, memberCount)
@@ -27,10 +27,12 @@ func readMember(reader *ClassReader, cp ConstantPool) *MemberInfo {
 	}
 }
 
+func (self *MemberInfo) AccessFlags() uint16 {
+	return self.accessFlags
+}
 func (self *MemberInfo) Name() string {
 	return self.cp.getUtf8(self.nameIndex)
 }
-
 func (self *MemberInfo) Descriptor() string {
 	return self.cp.getUtf8(self.descriptorIndex)
 }
@@ -45,15 +47,44 @@ func (self *MemberInfo) CodeAttribute() *CodeAttribute {
 	return nil
 }
 
-func (self *MemberInfo) AccessFlags() uint16 {
-	return self.accessFlags
-}
-
 func (self *MemberInfo) ConstantValueAttribute() *ConstantValueAttribute {
 	for _, attrInfo := range self.attributes {
 		switch attrInfo.(type) {
 		case *ConstantValueAttribute:
 			return attrInfo.(*ConstantValueAttribute)
+		}
+	}
+	return nil
+}
+
+func (self *MemberInfo) ExceptionsAttribute() *ExceptionsAttribute {
+	for _, attrInfo := range self.attributes {
+		switch attrInfo.(type) {
+		case *ExceptionsAttribute:
+			return attrInfo.(*ExceptionsAttribute)
+		}
+	}
+	return nil
+}
+
+func (self *MemberInfo) RuntimeVisibleAnnotationsAttributeData() []byte {
+	return self.getUnparsedAttributeData("RuntimeVisibleAnnotations")
+}
+func (self *MemberInfo) RuntimeVisibleParameterAnnotationsAttributeData() []byte {
+	return self.getUnparsedAttributeData("RuntimeVisibleParameterAnnotationsAttribute")
+}
+func (self *MemberInfo) AnnotationDefaultAttributeData() []byte {
+	return self.getUnparsedAttributeData("AnnotationDefault")
+}
+
+func (self *MemberInfo) getUnparsedAttributeData(name string) []byte {
+	for _, attrInfo := range self.attributes {
+		switch attrInfo.(type) {
+		case *UnparsedAttribute:
+			unparsedAttr := attrInfo.(*UnparsedAttribute)
+			if unparsedAttr.name == name {
+				return unparsedAttr.info
+			}
 		}
 	}
 	return nil

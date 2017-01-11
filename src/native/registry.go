@@ -1,6 +1,8 @@
 package native
 
-import "rtda"
+import (
+	"rtda"
+)
 
 type NativeMethod func(frame *rtda.Frame)
 
@@ -16,11 +18,17 @@ func FindNativeMethod(className, methodName, methodDescriptor string) NativeMeth
 	if method, ok := registry[key]; ok {
 		return method
 	}
-	if methodDescriptor == "()V" && methodName == "registerNatives" {
+	/*if methodName == "mapLibraryName"{
 		return emptyNativeMethod
+	}*/
+	if methodDescriptor == "()V" {
+		if methodName == "registerNatives" || methodName == "initIDs"{
+			return emptyNativeMethod
+		}
 	}
 	return nil
 }
+
 
 func emptyNativeMethod(frame *rtda.Frame) {
 	// do nothing

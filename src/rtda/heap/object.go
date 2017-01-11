@@ -41,3 +41,18 @@ func (self *Object) GetRefVar(name, descriptor string) *Object {
 	slots := self.data.(Slots)
 	return slots.GetRef(field.slotId)
 }
+
+func (self *Object) Data() interface{} {
+	return self.data
+}
+func (self *Object) GetIntVar(name, descriptor string) int32 {
+	field := self.class.getField(name, descriptor, false)
+	slots := self.data.(Slots)
+	return slots.GetInt(field.slotId)
+}
+
+func (self *Object) SetIntVar(name, descriptor string, val int32) {
+	field := self.class.getField(name, descriptor, false)
+	slots := self.data.(Slots)
+	slots.SetInt(field.slotId, val)
+}

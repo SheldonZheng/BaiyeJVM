@@ -21,12 +21,6 @@ func (self *INVOKE_VIRTUAL) Execute(frame *rtda.Frame) {
 
 	ref := frame.OperandStack().GetRefFromTop(resolvedMethod.ArgSlotCount() - 1)
 	if ref == nil {
-		// hack!
-		/*if methodRef.Name() == "println" {
-			_println(frame.OperandStack(), methodRef.Descriptor())
-			return
-		}*/
-
 		panic("java.lang.NullPointerException")
 	}
 
@@ -36,7 +30,9 @@ func (self *INVOKE_VIRTUAL) Execute(frame *rtda.Frame) {
 		ref.Class() != currentClass &&
 		!ref.Class().IsSubClassOf(currentClass) {
 
-		panic("java.lang.IllegalAccessError")
+		if !(ref.Class().IsArray() && resolvedMethod.Name() == "clone") {
+			panic("java.lang.IllegalAccessError")
+		}
 	}
 
 	methodToBeInvoked := heap.LookupMethodInClass(ref.Class(),

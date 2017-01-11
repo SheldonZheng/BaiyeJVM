@@ -6,10 +6,11 @@ import (
 	"fmt"
 )
 
+
 type ClassLoader struct {
 	cp          *classpath.Classpath
 	verboseFlag bool
-	classMap    map[string]*Class
+	classMap    map[string]*Class // loaded classes
 }
 
 func NewClassLoader(cp *classpath.Classpath, verboseFlag bool) *ClassLoader {
@@ -18,13 +19,24 @@ func NewClassLoader(cp *classpath.Classpath, verboseFlag bool) *ClassLoader {
 		verboseFlag: verboseFlag,
 		classMap:    make(map[string]*Class),
 	}
+
 	loader.loadBasicClasses()
 	loader.loadPrimitiveClasses()
 	return loader
 }
 
+func (self *ClassLoader) loadBasicClasses() {
+	jlClassClass := self.LoadClass("java/lang/Class")
+	for _, class := range self.classMap {
+		if class.jClass == nil {
+			class.jClass = jlClassClass.NewObject()
+			class.jClass.extra = class
+		}
+	}
+}
+
 func (self *ClassLoader) loadPrimitiveClasses() {
-	for primitiveType := range primitiveTypes {
+	for primitiveType, _ := range primitiveTypes {
 		self.loadPrimitiveClass(primitiveType)
 	}
 }
@@ -41,30 +53,24 @@ func (self *ClassLoader) loadPrimitiveClass(className string) {
 	self.classMap[className] = class
 }
 
-func (self *ClassLoader) loadBasicClasses() {
-	jlClassClass := self.LoadClass("java/lang/Class")
-	for _, class := range self.classMap {
-		if class.jClass == nil {
-			class.jClass = jlClassClass.NewObject()
-			class.jClass.extra = class
-		}
-	}
-}
-
 func (self *ClassLoader) LoadClass(name string) *Class {
 	if class, ok := self.classMap[name]; ok {
-		return class // already loaded
+		// already loaded
+		return class
 	}
+
 	var class *Class
 	if name[0] == '[' { // array class
 		class = self.loadArrayClass(name)
 	} else {
 		class = self.loadNonArrayClass(name)
 	}
+
 	if jlClassClass, ok := self.classMap["java/lang/Class"]; ok {
 		class.jClass = jlClassClass.NewObject()
 		class.jClass.extra = class
 	}
+
 	return class
 }
 
@@ -88,11 +94,14 @@ func (self *ClassLoader) loadNonArrayClass(name string) *Class {
 	data, entry := self.readClass(name)
 	class := self.defineClass(data)
 	link(class)
+
 	if self.verboseFlag {
 		fmt.Printf("[Loaded %s from %s]\n", name, entry)
 	}
+
 	return class
 }
+
 func (self *ClassLoader) readClass(name string) ([]byte, classpath.Entry) {
 	data, entry, err := self.cp.ReadClass(name)
 	if err != nil {
@@ -101,8 +110,10 @@ func (self *ClassLoader) readClass(name string) ([]byte, classpath.Entry) {
 	return data, entry
 }
 
+// jvms 5.3.5
 func (self *ClassLoader) defineClass(data []byte) *Class {
 	class := parseClass(data)
+	hackClass(class)
 	class.loader = self
 	resolveSuperClass(class)
 	resolveInterfaces(class)
@@ -119,12 +130,12 @@ func parseClass(data []byte) *Class {
 	return newClass(cf)
 }
 
+// jvms 5.4.3.1
 func resolveSuperClass(class *Class) {
 	if class.name != "java/lang/Object" {
 		class.superClass = class.loader.LoadClass(class.superClassName)
 	}
 }
-
 func resolveInterfaces(class *Class) {
 	interfaceCount := len(class.interfaceNames)
 	if interfaceCount > 0 {
@@ -141,9 +152,10 @@ func link(class *Class) {
 }
 
 func verify(class *Class) {
-	// TODO Java虚拟机规范4.10  类的验证算法
+	// todo
 }
 
+// jvms 5.4.2
 func prepare(class *Class) {
 	calcInstanceFieldSlotIds(class)
 	calcStaticFieldSlotIds(class)
@@ -195,6 +207,7 @@ func initStaticFinalVar(class *Class, field *Field) {
 	cp := class.constantPool
 	cpIndex := field.ConstValueIndex()
 	slotId := field.SlotId()
+
 	if cpIndex > 0 {
 		switch field.Descriptor() {
 		case "Z", "B", "C", "S", "I":
@@ -214,5 +227,13 @@ func initStaticFinalVar(class *Class, field *Field) {
 			jStr := JString(class.Loader(), goStr)
 			vars.SetRef(slotId, jStr)
 		}
+	}
+}
+
+// todo
+func hackClass(class *Class) {
+	if class.name == "java/lang/ClassLoader" {
+		loadLibrary := class.GetStaticMethod("loadLibrary", "(Ljava/lang/Class;Ljava/lang/String;Z)V")
+		loadLibrary.code = []byte{0xb1} // return void
 	}
 }

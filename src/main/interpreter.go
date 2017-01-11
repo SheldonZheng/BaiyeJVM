@@ -8,6 +8,7 @@ import (
 	"rtda/heap"
 )
 
+
 func interpret(thread *rtda.Thread, logInst bool) {
 	defer catchErr(thread)
 	loop(thread, logInst)
@@ -27,10 +28,11 @@ func loop(thread *rtda.Thread, logInst bool) {
 		pc := frame.NextPC()
 		thread.SetPC(pc)
 
+
 		// decode
 		reader.Reset(frame.Method().Code(), pc)
 		opcode := reader.ReadUint8()
-		//fmt.Println(opcode)
+
 		inst := instructions.NewInstruction(opcode)
 		inst.FetchOperands(reader)
 		frame.SetNextPC(reader.PC())

@@ -120,6 +120,10 @@ func (self *Class) GetClinitMethod() *Method {
 	return self.getMethod("<clinit>", "()V", true)
 }
 
+func (self *Class) GetStaticMethod(name, descriptor string) *Method {
+	return self.getMethod(name, descriptor, true)
+}
+
 func (self *Class) getMethod(name, descriptor string, isStatic bool) *Method {
 	for c := self; c != nil; c = c.superClass {
 		for _, method := range c.methods {

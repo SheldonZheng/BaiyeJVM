@@ -14,6 +14,13 @@ func init() {
 // private static native void initialize();
 // ()V
 func initialize(frame *rtda.Frame) {
+	classLoader := frame.Method().Class().Loader()
+	jlSysClass := classLoader.LoadClass("java/lang/System")
+	initSysClass := jlSysClass.GetStaticMethod("initializeSystemClass", "()V")
+	base.InvokeMethod(frame, initSysClass)
+}
+/*
+func initialize(frame *rtda.Frame) {
 	vmClass := frame.Method().Class()
 	savedProps := vmClass.GetRefVar("savedProps", "Ljava/util/Properties;")
 	key := heap.JString(vmClass.Loader(), "foo")
@@ -28,3 +35,4 @@ func initialize(frame *rtda.Frame) {
 		"(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;")
 	base.InvokeMethod(frame, setPropMethod)
 }
+*/

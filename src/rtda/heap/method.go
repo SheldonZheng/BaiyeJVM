@@ -4,11 +4,11 @@ import "classfile"
 
 type Method struct {
 	ClassMember
-	maxStack     uint
-	maxLocals    uint
-	code         []byte
-	argSlotCount uint
-	exceptionTable ExceptionTable
+	maxStack        uint
+	maxLocals       uint
+	code            []byte
+	argSlotCount    uint
+	exceptionTable  ExceptionTable
 	lineNumberTable *classfile.LineNumberTableAttribute
 }
 

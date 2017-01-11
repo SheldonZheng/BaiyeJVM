@@ -43,28 +43,28 @@ func getSourceFile(cf *classfile.ClassFile) string {
 	return "Unknown"
 }
 func (self *Class) IsPublic() bool {
-	return 0 != self.accessFlags & ACC_PUBLIC
+	return 0 != self.accessFlags&ACC_PUBLIC
 }
 func (self *Class) IsFinal() bool {
-	return 0 != self.accessFlags & ACC_FINAL
+	return 0 != self.accessFlags&ACC_FINAL
 }
 func (self *Class) IsSuper() bool {
-	return 0 != self.accessFlags & ACC_SUPER
+	return 0 != self.accessFlags&ACC_SUPER
 }
 func (self *Class) IsInterface() bool {
-	return 0 != self.accessFlags & ACC_INTERFACE
+	return 0 != self.accessFlags&ACC_INTERFACE
 }
 func (self *Class) IsAbstract() bool {
-	return 0 != self.accessFlags & ACC_ABSTRACT
+	return 0 != self.accessFlags&ACC_ABSTRACT
 }
 func (self *Class) IsSynthetic() bool {
-	return 0 != self.accessFlags & ACC_SYNTHETIC
+	return 0 != self.accessFlags&ACC_SYNTHETIC
 }
 func (self *Class) IsAnnotation() bool {
-	return 0 != self.accessFlags & ACC_ANNOTATION
+	return 0 != self.accessFlags&ACC_ANNOTATION
 }
 func (self *Class) IsEnum() bool {
-	return 0 != self.accessFlags & ACC_ENUM
+	return 0 != self.accessFlags&ACC_ENUM
 }
 
 // getters
@@ -189,6 +189,6 @@ func (self *Class) SetRefVar(fieldName, fieldDescriptor string, ref *Object) {
 	self.staticVars.SetRef(field.slotId, ref)
 }
 
-func (self *Class)SourceFile() string {
+func (self *Class) SourceFile() string {
 	return self.sourceFile
 }

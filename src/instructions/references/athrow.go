@@ -2,9 +2,9 @@ package references
 
 import (
 	"instructions/base"
+	"reflect"
 	"rtda"
 	"rtda/heap"
-	"reflect"
 )
 
 type ATHROW struct{ base.NoOperandsInstruction }
@@ -19,7 +19,6 @@ func (self *ATHROW) Execute(frame *rtda.Frame) {
 		handleUncaughtException(thread, ex)
 	}
 }
-
 
 func findAndGotoExceptionHandler(thread *rtda.Thread, ex *heap.Object) bool {
 	for {
@@ -54,4 +53,3 @@ func handleUncaughtException(thread *rtda.Thread, ex *heap.Object) {
 		println("\tat " + ste.String())
 	}
 }
-

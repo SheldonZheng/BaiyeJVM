@@ -5,20 +5,19 @@ import "classfile"
 type ExceptionTable []*ExceptionHandler
 
 type ExceptionHandler struct {
-	startPc int
-	endPc int
+	startPc   int
+	endPc     int
 	handlerPc int
 	catchType *ClassRef
 }
 
-
 func newExceptionTable(entries []*classfile.ExceptionTableEntry,
-cp *ConstantPool) ExceptionTable {
+	cp *ConstantPool) ExceptionTable {
 	table := make([]*ExceptionHandler, len(entries))
 	for i, entry := range entries {
 		table[i] = &ExceptionHandler{
-			startPc: int(entry.StartPc()),
-			endPc: int(entry.EndPc()),
+			startPc:   int(entry.StartPc()),
+			endPc:     int(entry.EndPc()),
 			handlerPc: int(entry.HandlerPc()),
 			catchType: getCatchType(uint(entry.CatchType()), cp),
 		}
@@ -34,7 +33,7 @@ func getCatchType(index uint, cp *ConstantPool) *ClassRef {
 }
 
 func (self ExceptionTable) findExceptionHandler(exClass *Class,
-pc int) *ExceptionHandler {
+	pc int) *ExceptionHandler {
 	for _, handler := range self {
 		if pc >= handler.startPc && pc < handler.endPc {
 			if handler.catchType == nil {

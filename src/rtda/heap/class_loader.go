@@ -151,6 +151,11 @@ func link(class *Class) {
 }
 
 func verify(class *Class) {
+	/*for _,field := range class.Fields(){
+		if field.Name() == nil || field.Class() == nil || field.AccessFlags() == nil || field.Type() == nil{
+			panic("")
+		}
+	}*/
 	// todo
 }
 
